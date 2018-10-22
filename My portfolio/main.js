@@ -96,3 +96,10 @@ function toggleMenu() {
       showMenu = false; 
     }
 }
+
+//DOM items for Contact 
+document.getElementById("phone").addEventListener("click", phoneFunction);
+
+function phoneFunction () {
+    document.getElementById("phone").innerHTML = "763<br>234<br>6954";
+}
