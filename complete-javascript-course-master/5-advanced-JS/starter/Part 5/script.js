@@ -192,7 +192,7 @@ designer('jane');
 */
 
 //BIND, CALL AND APPLY*********************
-
+/*
 var john = {
     name: 'John',
     age: 26,
@@ -216,4 +216,49 @@ john.presentation('formal', 'morning');
 john.presentation.call(emily, 'friendly', 'afternoon');
 
 var johnFriendly = john.presentation.bind(john, 'friendly');
-johnFriendly();
+johnFriendly('evening');
+
+var emilyFormal = john.presentation.bind(emily, 'formal');
+emilyFormal('afternoon');
+*/
+
+//CHALLENGE************************
+
+function Question(question, answer, correctAnswer){
+    this.question = question;
+    this.answer = answer;
+    this.correctAnswer = correctAnswer;
+}
+
+Question.prototype.displayQuestion = function(){
+    console.log(this.question);
+
+    for (var i = 0; i < this.answer.length; i++) {
+        console.log(i + ': ' + this.answer[i]);
+    }
+}
+
+Question.prototype.checkAnswer = function(ans){
+    if(ans === this.correctAnswer){
+        console.log('Correct Answer!');
+    } else {
+        console.log('Wrong answer try again!');
+    }
+}
+
+
+var q1 = new Question('What is your name?', ['John', 'Erik', 'Mark'], 1);
+var q2 = new Question('How hard is JavaScript', ['Hard', 'Very Hard', 'Extremely Hard'], 0);
+var q3 = new Question('Which operating system is better?', ['Mac', 'Linux', 'Windows'], 2);
+
+var questions = [q1, q2, q3];
+
+var randomQuestion = Math.floor(Math.random() * questions.length);
+
+questions[randomQuestion].displayQuestion();
+
+var answer = parseInt(prompt('Please select the correct answer.'));
+
+questions[randomQuestion].checkAnswer(answer);
+
+
