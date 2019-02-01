@@ -224,12 +224,15 @@ emilyFormal('afternoon');
 
 //CHALLENGE************************
 
+(function(){
+    //first creat a function constructor
 function Question(question, answer, correctAnswer){
     this.question = question;
     this.answer = answer;
     this.correctAnswer = correctAnswer;
 }
 
+//this will display the question and answer to the log with the # on the answer
 Question.prototype.displayQuestion = function(){
     console.log(this.question);
 
@@ -238,6 +241,7 @@ Question.prototype.displayQuestion = function(){
     }
 }
 
+//this will check your answer that the user inputs on the prompt 
 Question.prototype.checkAnswer = function(ans){
     if(ans === this.correctAnswer){
         console.log('Correct Answer!');
@@ -246,19 +250,34 @@ Question.prototype.checkAnswer = function(ans){
     }
 }
 
-
+//here we store all of our data question, answer, and correct answer
 var q1 = new Question('What is your name?', ['John', 'Erik', 'Mark'], 1);
 var q2 = new Question('How hard is JavaScript', ['Hard', 'Very Hard', 'Extremely Hard'], 0);
 var q3 = new Question('Which operating system is better?', ['Mac', 'Linux', 'Windows'], 2);
 
-var questions = [q1, q2, q3];
+    //we have to create an array to loop through and create a random question
+    var questions = [q1, q2, q3];
 
-var randomQuestion = Math.floor(Math.random() * questions.length);
+function nextQuestion(){
 
-questions[randomQuestion].displayQuestion();
+    //here we create the random number by using the array above going from 0 to 2
+    var randomQuestion = Math.floor(Math.random() * questions.length);
 
-var answer = parseInt(prompt('Please select the correct answer.'));
+    //here we store the random question generated and is put into the function to display
+    questions[randomQuestion].displayQuestion();
 
-questions[randomQuestion].checkAnswer(answer);
+    //here we store the answer the end user enters 
+    var answer = prompt('Please select the correct answer.');
 
+    if(answer !== 'exit'){
+        //here we connect the end user entered answer and its checked by way of the function 
+        questions[randomQuestion].checkAnswer(parseInt(answer));
 
+        nextQuestion();
+    }
+
+}
+
+nextQuestion();
+
+})();
