@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 
-function App() {
+import Nav from './components/Nav/Nav';
+import MainSlider from './components/mainSlider/MainSlider';
 
-  return (
-    <div className="App">
-      <h1>hello world </h1>
-    </div>
-  );
+class App extends Component {
+  
+  render() {
+    return (
+      <div className="App">
+        <Nav />
+        <MainSlider />
+      </div>
+    );
+  };
 }
 
 export default App;

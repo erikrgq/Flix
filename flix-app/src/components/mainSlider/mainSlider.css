@@ -1,0 +1,15 @@
+.main_slider{
+    height: 500px;
+    width: 100%;
+    display: block;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.main_slider > a {
+    height: 500px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
