@@ -1,0 +1,2 @@
+export const SEARCH_RESULT = 'SEARCH_RESULT';
+export const FETCH_RESULT = 'FETCH_RESULT';
