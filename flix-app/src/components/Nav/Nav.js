@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {searchResult, fetchResults} from '../../actions/searchAction';
 import {connect} from 'react-redux';
 
 import './navStyle.css';
@@ -7,15 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilm, faHome, faUser, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 class Nav extends Component {
-
-    handleSearchQuery = (e) => {
-        this.props.searchResult(e.target.value);
-    }
-    submitSearch = (e) => {
-        e.preventDefault();
-        this.props.fetchResults(this.props.text);
-    }
-
     render() {
         return (
             <nav>
@@ -34,7 +24,7 @@ class Nav extends Component {
 };
 
 const mapStatesToProps = state => ({
-    text: state.results
+    text: state.text
 });
 
-export default connect(mapStatesToProps, {searchResult, fetchResults})(Nav);
+export default connect(mapStatesToProps, {})(Nav);
