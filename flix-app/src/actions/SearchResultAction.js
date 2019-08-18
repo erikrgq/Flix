@@ -1,4 +1,6 @@
 import { SEARCH_RESULT } from './types';
+import Axios from 'axios';
+
 
 const saveResult = payload => ({
     type: SEARCH_RESULT,
@@ -7,8 +9,8 @@ const saveResult = payload => ({
 
 const searchResult = url => {
     return dispatch => {
-        fetch(url)
-        .then(res => res.json())
+        Axios.get(url)
+        .then(res => res.data)
         .then(data => dispatch(saveResult(data)))
         .catch(error => console.log(error));
     }
