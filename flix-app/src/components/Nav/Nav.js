@@ -9,13 +9,23 @@ import saveText from '../../actions/SearchTextAction';
 import searchResult from '../../actions/SearchResultAction';
 
 class Nav extends Component {
+    /*constructor(props) {
+        super(props);
+        this.state = {
+            text: 'avengers'
+        }
+        this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+    }*/
+
     onChange = e => {
-        this.props.saveText(e.target.value);
+        const text = e.target.value;
+        this.props.saveText(text);
     }
 
     onSubmit = e => {
         e.preventDefault();
-        this.props.searchResult(`https://api.themoviedb.org/3/search/movie?api_key=204a23cc979d825bf52238aed9a22056&language=en-US&query=avengers&page=1&include_adult=false`);
+        this.props.searchResult(this.props.text);
     }
 
     render() {
