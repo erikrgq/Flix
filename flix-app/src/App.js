@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import './App.css';
-import { Provider } from 'react-redux';
-import store from './Store';
 
 import Nav from './components/Nav/Nav';
 import MainSlider from './components/mainSlider/MainSlider';
 import MediaButtons from './components/mediaButtons/MediaButton';
 import DiscoverMovies from './components/discoverMovies/DiscoverMovies';
+import searchResult from './components/searchResult/SearchResult';
 
 class App extends Component{
   render(){
     return (
-      <Provider store={store}>
+      <Router>
         <div className="App">
+          <Route path="search-result" exact component={searchResult} />
           <Nav />
           <main className="main_home">
           <MainSlider />
@@ -20,7 +21,7 @@ class App extends Component{
           <DiscoverMovies />
           </main>
         </div>
-      </Provider>
+      </Router>
     );
   }
 }

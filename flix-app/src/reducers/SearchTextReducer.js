@@ -1,19 +1,19 @@
 import { SEARCH_TEXT_REDUCER } from '../actions/types';
 
 const initialState = {
-    text: ''
+    searchInput: "",
+    loading: false
 }
 
-const searchText = (state = initialState, action) => {
+export default function(state = initialState, action) {
     switch(action.type) {
         case SEARCH_TEXT_REDUCER:
             return{
                 ...state,
-                text: action.payload,
+                searchInput: action.payload,
+                loading: false
             };
         default:
             return state;
     }
 };
-
-export default searchText;

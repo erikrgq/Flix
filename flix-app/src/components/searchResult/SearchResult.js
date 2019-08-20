@@ -14,11 +14,6 @@ class SearchResult extends Component {
         page: 1
     }
 
-    //will fetch initial data
-    componentDidMount(){
-        this.props.searchResult(`https://api.themoviedb.org/3/search/multi?api_key=${this.props.apiKey}&language=en-US&query=avengers&page=${this.state.page}&include_adult=false&region=US`);
-    }
-
     render() {
         return (
             <div>

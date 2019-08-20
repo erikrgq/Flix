@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import './navStyle.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,25 +10,16 @@ import saveText from '../../actions/SearchTextAction';
 import searchResult from '../../actions/SearchResultAction';
 
 class Nav extends Component {
-    /*constructor(props) {
-        super(props);
-        this.state = {
-            text: 'avengers'
-        }
-        this.onChange = this.onChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-    }*/
-
     onChange = e => {
-        const text = e.target.value;
-        this.props.saveText(text);
+        const searchInput = e.target.value;
+        this.props.saveText(searchInput);
     }
 
     onSubmit = e => {
         e.preventDefault();
-        this.props.searchResult(this.props.text);
+        this.props.searchResult(`https://api.themoviedb.org/3/search/movie?api_key=${this.props.apiKey}&language=en-US&query=${this.props.searchInput}&page=1&include_adult=false`);
     }
-
+    
     render() {
         return (
             <nav>
@@ -47,12 +39,9 @@ class Nav extends Component {
 
 const mapStateToProps = state => ({
     apiKey: state.ApiKeyConfig.apiKey,
-    text: state.searchText.text
+    searchInput: state.searchText.searchInput
 });
 
-const mapDispatchToProps = dispach => ({
-    saveText: () => dispach(saveText()),
-    searchResult: () => dispach(searchResult())
-});
+const mapDispatchToProps = {saveText, searchResult};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Nav);

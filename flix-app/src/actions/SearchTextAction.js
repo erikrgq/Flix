@@ -1,10 +1,10 @@
 import { SEARCH_TEXT_REDUCER } from './types';
 
-const saveText = text => dispatch => {
+export const saveText = searchInput => dispatch => {
     dispatch({
         type: SEARCH_TEXT_REDUCER,
-        payload: text
+        payload: searchInput
     });
-}
+};
 
 export default saveText;

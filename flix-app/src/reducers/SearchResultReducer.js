@@ -1,19 +1,19 @@
-import { SEARCH_RESULT} from '../actions/types';
+import { SEARCH_RESULT } from '../actions/types';
 
 const initialState = {
-    results: []
-}
+    results: [],
+    loading: false,
+    result: {}
+};
 
-const searchResult = (state = initialState, action) => {
+export default function(state = initialState, action) {
     switch(action.type) {
         case SEARCH_RESULT:
             return {
                 ...state,
-                ...action.payload
+                results: action.payload
             };
         default:
             return state;
     }
-};
-
-export default searchResult;
+}
