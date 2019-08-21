@@ -14,23 +14,40 @@ class Nav extends Component {
         const searchInput = e.target.value;
         this.props.saveText(searchInput);
     }
-
-    onSubmit = e => {
-        e.preventDefault();
-        this.props.searchResult(`https://api.themoviedb.org/3/search/movie?api_key=${this.props.apiKey}&language=en-US&query=${this.props.searchInput}&page=1&include_adult=false`);
-    }
     
     render() {
         return (
             <nav>
-                <span><FontAwesomeIcon icon={faFilm} className="nav_icon" /></span>
-                <form className="nav_top" onSubmit={this.onSubmit}>
-                    <input type="text" name="search" placeholder="Search Flix..." onChange={this.onChange} />
-                    <button type="submit" value="submit" className="btn search_btn"><FontAwesomeIcon icon={faSearch} className="nav_icon" /></button>
+                <span>
+                    <FontAwesomeIcon icon={faFilm} className="nav_home" />
+                </span>
+                <form className="nav_search" >
+                    <input 
+                        className="search_left" 
+                        type="text" 
+                        name="search" 
+                        placeholder="Search Flix..." 
+                        onChange={this.onChange} />
+                    <Link to={`/search-result`}>
+                    <button
+                        className="search_right" 
+                        type="submit" 
+                        value="submit">
+                        <FontAwesomeIcon icon={faSearch} className="nav_icon" />
+                    </button>
+                    </Link>
                 </form>
-                <div className="nav_bottom">
-                    <span><FontAwesomeIcon icon={faHome} className="nav_icon" /></span>
-                    <span><FontAwesomeIcon icon={faUser} className="nav_icon" /></span>
+                <div className="nav_right">
+                    <span>
+                        <Link to={"/home"}>
+                            <FontAwesomeIcon icon={faHome} className="nav_right_icon" />
+                        </Link>
+                    </span>
+                    <span>
+                        <Link t0={"/profile"}>
+                            <FontAwesomeIcon icon={faUser} className="nav_right_icon" />
+                        </Link>
+                    </span>
                 </div>
             </nav>
         );
@@ -42,6 +59,9 @@ const mapStateToProps = state => ({
     searchInput: state.searchText.searchInput
 });
 
-const mapDispatchToProps = {saveText, searchResult};
+const mapDispatchToProps = dispatch => ({
+    searchResult: url => dispatch(searchResult(url)),
+    saveText: searchInput => dispatch(saveText(searchInput))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Nav);

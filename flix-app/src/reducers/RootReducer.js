@@ -3,10 +3,12 @@ import ApiKeyConfigReducer from './ApiKeyConfigReducer';
 import PostSearchResultReducer from './PostSearchResultReducer';
 import SearchResultReducer from './SearchResultReducer';
 import SearchTextReducer from './SearchTextReducer';
+import SetMediaType from './SetMediaType';
 
 export default combineReducers({
     ApiKeyConfig: ApiKeyConfigReducer,
     PostSearchResultReducer,
-    SearchResultReducer,
-    searchText: SearchTextReducer
+    searchResult: SearchResultReducer,
+    searchText: SearchTextReducer,
+    setMediaType: SetMediaType,
 });

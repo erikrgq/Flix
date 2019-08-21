@@ -2,24 +2,18 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import './App.css';
 
-import Nav from './components/Nav/Nav';
-import MainSlider from './components/mainSlider/MainSlider';
-import MediaButtons from './components/mediaButtons/MediaButton';
-import DiscoverMovies from './components/discoverMovies/DiscoverMovies';
 import searchResult from './components/searchResult/SearchResult';
+import Home from './components/home/Home';
 
 class App extends Component{
   render(){
     return (
       <Router>
         <div className="App">
-          <Route path="search-result" exact component={searchResult} />
-          <Nav />
-          <main className="main_home">
-          <MainSlider />
-          <MediaButtons />
-          <DiscoverMovies />
-          </main>
+        <Route exact path="/search-result" component={searchResult} />
+        <main className="main_home">
+        <Route exact path="/home" component={Home} />
+        </main>
         </div>
       </Router>
     );

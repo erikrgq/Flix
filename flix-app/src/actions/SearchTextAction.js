@@ -7,4 +7,4 @@ export const saveText = searchInput => dispatch => {
     });
 };
 
-export default saveText;
+export default saveText; 

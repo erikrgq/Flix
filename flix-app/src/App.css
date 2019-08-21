@@ -25,8 +25,6 @@ nav > form > button {
   background-size: cover;
 }
 .main_home{
-  display: grid;
-  grid-template-rows: repeat(3, auto);
   position: absolute;
   top: 75px;
   left: 0;
