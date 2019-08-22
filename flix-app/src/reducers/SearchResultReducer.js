@@ -1,9 +1,7 @@
 import { SEARCH_RESULT } from '../actions/types';
 
 const initialState = {
-    results: [],
-    loading: false,
-    result: {}
+    results: []
 };
 
 export default function(state = initialState, action) {

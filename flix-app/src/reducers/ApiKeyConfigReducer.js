@@ -2,9 +2,9 @@ import {API_KEY_CONFIG} from '../actions/types';
 
 const initialState = {
     apiKey: '204a23cc979d825bf52238aed9a22056'
-}
+};
 
-const apiKeyConfig = (state = initialState, action) => {
+export default function(state = initialState, action) {
     switch(action.type){
         case API_KEY_CONFIG:
             return {
@@ -15,5 +15,3 @@ const apiKeyConfig = (state = initialState, action) => {
             return state;
     }
 };
-
-export default apiKeyConfig;
