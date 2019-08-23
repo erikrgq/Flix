@@ -41,6 +41,15 @@ class SearchResult extends Component {
 
     parseSearchStr = str => str.split('-').map((item, index) => index === 0 ? item.split('').map((letter, index) => index === 0 ? letter.toUpperCase() : letter).join('') : item).join(' ');
 
+    // Checks item genre ids, compares them to genre list and returns genre names
+    renderGenres = (mediaType, genres) => {
+        const genresList = mediaType === 'tv' ? this.props.TVGenres.genres : this.props.movieGenres.genres;
+        if (genresList && genres) {
+        let genresArr = genresList.filter(genre => genre.id === genres[0] || genre.id === genres[1] ? genre.name : null);
+        return <p className="search-results-main-body-item__genres">{genresArr[0] ? genresArr[0].name : ''}{genresArr[1] ? ` / ` + genresArr[1].name : ''}</p>
+        }
+    }
+
     renderResults = () => {
         switch(this.props.searchInput) {
 

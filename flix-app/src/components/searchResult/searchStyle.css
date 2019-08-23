@@ -42,24 +42,3 @@ a > .search_result{
     height: auto;
     width: 130px;
 }
-
-.btn_container{
-    display: block;
-    height: 200px;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.btn_container > button {
-    font-size: 30px;
-    padding: 10px;
-    width: 500px;
-    margin: 0 5px;
-    outline: none;
-    border: 5px solid #f9f9f9;
-    border-radius: 5px;
-    color: #f9f9f9;
-    background-color: #303030;
-    cursor: pointer;
-}
