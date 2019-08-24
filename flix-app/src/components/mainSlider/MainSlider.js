@@ -6,63 +6,55 @@ import Swiper from 'swiper';
 import './mainSlider.css';
 
 class MainSlider extends Component {
+    //compares genre ids with genre list to get genre names
+    genreList = genreId => {
+        let mainGenre;
+        if(this.props.movieGenre.genres) {
+            this.props.movieGenre.genres.forEach(genre => {
+                if(genre.id === genreId[0]) {
+                    return mainGenre = genre.name;
+                }
+            });
+        }
+        return mainGenre;
+    };
+
     render() {
         (() => {
             const sliderEl = document.querySelector('.swiper-container');
-                if(!sliderEl){
-                    return;
-                }
+            if(!sliderEl) {
+                return;
+            }
             const slider = new Swiper(sliderEl, {
                 direction: 'verticle',
                 slidesPerView: 1,
                 loop: true,
-                spaceBetween: 0,
                 observer: true,
       
                 autoplay: {
-                    delay: 7500,
+                    delay: 5000,
                 },
-      
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-                navigation: {
-                    nextEl: '.home-swiper-button-next',
-                    prevEl: '.home-swiper-button-prev',
-                }
             });
         })();
 
         return(
             <div className="swiper-container">
                 <div className="swiper-wrapper">
-                    <div className="swiper-slide">
-                        <img src="https://cdn.onebauer.media/one/empire-tmdb/films/99861/images/rFtsE7Lhlc2jRWF7SRAU0fvrveQ.jpg?quality=50&width=1800&ratio=16-9&resizeStyle=aspectfill&format=jpg" alt="" />
-                        <div className="swiper-info">
-                            <p>Trending</p>
-                            <h2>Title here</h2>
-                            <p>Genre | 7.8 Rating</p>
-                        </div>
-                    </div>
-                    <div className="swiper-slide">
-                        <img src="https://cdn.onebauer.media/one/empire-tmdb/films/99861/images/rFtsE7Lhlc2jRWF7SRAU0fvrveQ.jpg?quality=50&width=1800&ratio=16-9&resizeStyle=aspectfill&format=jpg" alt="" />
-                        <div className="swiper-info">
-                            <p>Trending</p>
-                            <h2>Title here</h2>
-                            <p>Genre | 9.9 Rating</p>
-                        </div>
-                    </div>
-                    <div className="swiper-slide">
-                        <img src="https://cdn.onebauer.media/one/empire-tmdb/films/99861/images/rFtsE7Lhlc2jRWF7SRAU0fvrveQ.jpg?quality=50&width=1800&ratio=16-9&resizeStyle=aspectfill&format=jpg" alt="" />
-                        <div className="swiper-info">
-                            <p>Trending</p>
-                            <h2>Title here</h2>
-                            <p>Genre | 9.1 Rating</p>
-                        </div>
-                    </div>
+                {this.props.trending.results.map((item, i) => {
+                    if (i > 1 && i < 12) {
+                    return (
+                        <Link key={item.id} className="swiper-slide">
+                            <img src={this.props.config.images ? this.props.config.images.secure_base_url + this.props.config.images.backdrop_sizes[2] + item.backdrop_path : ''  } alt={item.title} style={{height: '100%', width: '100%'}} />
+                            <div className="swiper-info">
+                                <p>TRENDING</p>
+                                <h2>{item.title}</h2>
+                                <p>{this.genreList(item.genre_ids)} | {item.vote_average} Rating</p>
+                            </div>
+                        </Link>
+                    );
+                    }
+                })}
                 </div>
-                <div className="swiper-pagination"></div>
             </div>
         );
     }
@@ -71,8 +63,9 @@ class MainSlider extends Component {
 const mapStateToProps = state => ({
     apiKey: state.ApiKeyConfig.apiKey,
     config: state.ApiKeyConfig,
-    searchResultData: state.searchResult,
-    searchInput: state.searchText.searchInput
+    trending: state.trendingMovie,
+    movieGenre: state.movieGenre,
+    tvGenre: state.tvGenre
 });
 
 export default connect(mapStateToProps)(MainSlider);

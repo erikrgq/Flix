@@ -26,8 +26,10 @@ header > hr {
     justify-content: center;
     justify-items: center;
 }
-a > .search_result{
+.search_result_body > a {
     text-decoration: none;
+}
+.search_result{
     color: #f9f9f9;
     opacity: .8;
     transition: opacity .2s;

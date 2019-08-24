@@ -1,8 +1,7 @@
 .swiper-container{
-   
     overflow: hidden;
 }
-.swiper-wrapper{    
+.swiper-wrapper{
     width: 100%;
     height: 900px;
 }
@@ -16,17 +15,17 @@
 .swiper-slide{
     background-size: cover, cover !important;
     font-size: 18px;
-    position: relative;
     display: flex;
+    flex-direction: row;
+    position: relative;
+    top: 0;
+    left: 0;
     cursor: pointer;
+    height: 900px;
+    width: 100%;
 }
 .swiper-slide > img{
-    width: 100%;
-    height: 100%;
     background-position: center top no-repeat;
-    background-repeat: no-repeat;
-    background-size: cover cover;
-}
-.swiper-pagination{
-    z-index: 1;
+    background-size: cover;
+    opacity: 0.5;
 }

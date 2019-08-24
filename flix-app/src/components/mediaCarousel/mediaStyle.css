@@ -1,20 +1,16 @@
-.discover_container{
+.media-container{
     width: 75%;
     margin: auto;
 }
-.discover_section{
-    display: block;
-    border-bottom: 3px solid #f9f9f9;
-}
-.discover_section > h2 {
+.swiper-container > h2 {
     padding: 20px 0 0 0;
 }
-.discover_list{
+.swiper-wrapper{
     display: flex;
     padding: 10px 20px;
     justify-content: space-between;
 }
-.discover_list > a {
+.swiper-wrapper > a {
     display: grid;
     grid-template-rows: repeat(4, auto);
     text-decoration: none;
@@ -25,4 +21,10 @@ a > span{
     top: 25px;
     left: 5px;
     color: #f9f9f9;
+}
+.media_carousel_separator{
+    padding: 2.5px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    border: none;
 }
