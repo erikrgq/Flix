@@ -24,7 +24,7 @@ class Home extends Component {
     componentDidMount() {
         if(this.props.itemType === 'MOVIE') {
             this.handleMovieFetch();
-        } else if (this.props.itemType === 'TV') {
+        } else if(this.props.itemType === 'TV') {
             this.handleTVFetch();
         }
     }
@@ -45,11 +45,11 @@ class Home extends Component {
 
     render() {
         (() => {
-            const sliderEl = document.querySelectorAll('.swiper-container');
-             if(!sliderEl){
+            const sliderElement = document.querySelectorAll('.swiper-containers');
+             if(!sliderElement){
                return;
              }
-             const slider = new Swiper(sliderEl, {
+             const slider = new Swiper(sliderElement, {
                init: true,
                slidesPerView: 7,
                loop: true,
@@ -76,28 +76,28 @@ class Home extends Component {
           })();
 
           let movie;
-          if(this.props.itemType === 'MOVIE'){
+          if(this.props.itemType === 'MOVIE' && this.handleMovieFetch()){
               movie = 
               <div>
-                  <MediaCarousel title="Now Playing" genres={this.props.movieGenre.genres} config={this.props.imgConfig} items={this.props.nowPlayingMovies.results} type={this.props.itemType} />
-                  <MediaCarousel title="Upcoming" genres={this.props.movieGenre.genres} config={this.props.imgConfig} items={this.props.upcomingMovies.results} type={this.props.itemType} />
-                  <MediaCarousel title="Popular" genres={this.props.movieGenre.genres} config={this.props.imgConfig} items={this.props.popularMovies.results} type={this.props.itemType} />
-                  <MediaCarousel title="Top Rated" genres={this.props.movieGenre.genres} config={this.props.imgConfig} items={this.props.topRatedMovies.results} type={this.props.itemType} />
+                  <MediaCarousel title="Now Playing" genres={this.props.movieGenre.genres} config={this.props.config} items={this.props.nowPlayingMovies.results} type={this.props.itemType} />
+                  <MediaCarousel title="Upcoming" genres={this.props.movieGenre.genres} config={this.props.config} items={this.props.upcomingMovies.results} type={this.props.itemType} />
+                  <MediaCarousel title="Popular" genres={this.props.movieGenre.genres} config={this.props.config} items={this.props.popularMovies.results} type={this.props.itemType} />
+                  <MediaCarousel title="Top Rated" genres={this.props.movieGenre.genres} config={this.props.config} items={this.props.topRatedMovies.results} type={this.props.itemType} />
               </div>;
-          } else if(this.props.itemType === 'TV') {
+          } else if(this.props.itemType === 'TV' && this.handleTVFetch) {
               movie = 
               <div>
-                  <MediaCarousel title="TV On Air" genres={this.props.movieGenre.genres} config={this.props.imgConfig} items={this.props.tvOnAir.results} type={this.props.itemType} />
-                  <MediaCarousel title="TV Airing Today" genres={this.props.movieGenre.genres} config={this.props.imgConfig} items={this.props.tvAiring.results} type={this.props.itemType} />
-                  <MediaCarousel title="Popular TV" genres={this.props.movieGenre.genres} config={this.props.imgConfig} items={this.props.popularTv.results} type={this.props.itemType} />
-                  <MediaCarousel title="Top Rated TV" genres={this.props.movieGenre.genres} config={this.props.imgConfig} items={this.props.topRated.results} type={this.props.itemType} />
+                  <MediaCarousel title="TV On Air" genres={this.props.movieGenre.genres} config={this.props.config} items={this.props.tvOnAir.results} type={this.props.itemType} />
+                  <MediaCarousel title="TV Airing Today" genres={this.props.movieGenre.genres} config={this.props.config} items={this.props.tvAiring.results} type={this.props.itemType} />
+                  <MediaCarousel title="Popular TV" genres={this.props.movieGenre.genres} config={this.props.config} items={this.props.popularTv.results} type={this.props.itemType} />
+                  <MediaCarousel title="Top Rated TV" genres={this.props.movieGenre.genres} config={this.props.config} items={this.props.topRated.results} type={this.props.itemType} />
               </div>;
           }
 
         return (
             <div>
                 <Nav />
-                <MainSlider />
+                
                 <MediaButtons />
                 <div>
                     {movie}
@@ -109,10 +109,11 @@ class Home extends Component {
 
 const mapStateToProps = state => ({
     apiKey: state.ApiKeyConfig.apiKey,
-    imgConfig: state.apiKeyConfig,
+    config: state.ApiKeyConfig,
 
     movieGenre: state.movieGenre,
     tvGenre: state.tvGenre,
+    trendingMovie: state.trendingMovie,
 
     itemType: state.setMediaType.itemType,
 

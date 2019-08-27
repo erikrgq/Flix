@@ -13,23 +13,27 @@ class MediaCarousel extends Component {
 
     render() {
         const config = this.props.config;
+        if(!this.props.items) {
+            return;
+        }
         return (
+            
             <div className="media-container">
 
-                <section className="swiper-container">
+                <section className="swiper-containers">
                     <h2>{this.props.title}</h2>
 
                     <div className="swiper-wrapper">
-                        {this.props.items.map((movie, i) => (
-                            <div key={movie.id} className="swiper-slide">
-                                <Link to={`/details`}>
-                                <span>{movie.vote_average}</span>
-                                    <img src={`${config.images ? config.images.secure_base_url : ''}${config.images ? config.images.poster_sizes[1] : ''}${movie.poster_path}`} alt={movie.title} />
-                                    <h3>{movie.title}</h3>
-                                    <p>{this.renderGenres(movie.genre_ids)}</p>
-                                </Link>
-                            </div>
-                        ))}
+                    {this.props.items.map((movie, i) => (
+                        <div key={movie.id} className="swiper-slide">
+                            <Link to={`/details`}>
+                            <span>{movie.vote_average}</span>
+                            <img src={`${config.images ? config.images.secure_base_url : ''}${config.images ? config.images.poster_sizes[1] : ''}${movie.poster_path}`} alt={movie.title} />
+                                <h3>{movie.title}</h3>
+                                <p>{this.renderGenres(movie.genre_ids)}</p>
+                            </Link>
+                        </div>
+                    ))}
 
                     </div>
 

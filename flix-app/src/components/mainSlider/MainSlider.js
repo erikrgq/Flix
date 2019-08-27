@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Swiper from 'swiper';
 
 import './mainSlider.css';
@@ -20,6 +20,7 @@ class MainSlider extends Component {
     };
 
     render() {
+        
         (() => {
             const sliderEl = document.querySelector('.swiper-container');
             if(!sliderEl) {
@@ -36,36 +37,29 @@ class MainSlider extends Component {
                 },
             });
         })();
-
         return(
             <div className="swiper-container">
                 <div className="swiper-wrapper">
-                {this.props.trending.results.map((item, i) => {
+                {
+                    this.props.items.map((item, i) => {
                     if (i > 1 && i < 12) {
-                    return (
-                        <Link key={item.id} className="swiper-slide">
-                            <img src={this.props.config.images ? this.props.config.images.secure_base_url + this.props.config.images.backdrop_sizes[2] + item.backdrop_path : ''  } alt={item.title} style={{height: '100%', width: '100%'}} />
-                            <div className="swiper-info">
-                                <p>TRENDING</p>
-                                <h2>{item.title}</h2>
-                                <p>{this.genreList(item.genre_ids)} | {item.vote_average} Rating</p>
-                            </div>
-                        </Link>
-                    );
-                    }
-                })}
+                        return (
+                            <Link key={item.id} className="swiper-slide">
+                                <img src={this.props.config.images ? this.props.config.images.secure_base_url + this.props.config.images.backdrop_sizes[2] + item.backdrop_path : ''} alt={item.title} style={{height: '100%', width: '100%'}} />
+                                <div className="swiper-info">
+                                    <p>TRENDING</p>
+                                    <h2>{item.title}</h2>
+                                    <p>{this.genreList(item.genre_ids)} | {item.vote_average} Rating</p>
+                                </div>
+                            </Link>
+                        );
+                        }
+                    })
+                }
                 </div>
             </div>
         );
     }
 };
 
-const mapStateToProps = state => ({
-    apiKey: state.ApiKeyConfig.apiKey,
-    config: state.ApiKeyConfig,
-    trending: state.trendingMovie,
-    movieGenre: state.movieGenre,
-    tvGenre: state.tvGenre
-});
-
-export default connect(mapStateToProps)(MainSlider);
+export default MainSlider;
