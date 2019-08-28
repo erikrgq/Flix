@@ -20,12 +20,12 @@ class MediaCarousel extends Component {
             
             <div className="media-container">
 
-                <section className="swiper-containers">
+                <section className="media-swiper-container">
                     <h2>{this.props.title}</h2>
 
-                    <div className="swiper-wrapper">
+                    <div className="swiper-wrapper media_wrapper">
                     {this.props.items.map((movie, i) => (
-                        <div key={movie.id} className="swiper-slide">
+                        <div key={movie.id} className="swiper-slide media_slide">
                             <Link to={`/details`}>
                             <span>{movie.vote_average}</span>
                             <img src={`${config.images ? config.images.secure_base_url : ''}${config.images ? config.images.poster_sizes[1] : ''}${movie.poster_path}`} alt={movie.title} />
@@ -34,8 +34,8 @@ class MediaCarousel extends Component {
                             </Link>
                         </div>
                     ))}
-
                     </div>
+
 
                     <div className="swiper-button-prev"></div>
                     <div className="swiper-button-next"></div>

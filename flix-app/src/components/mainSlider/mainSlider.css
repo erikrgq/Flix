@@ -1,7 +1,7 @@
-.swiper-container{
+.main-swiper-container{
     overflow: hidden;
 }
-.swiper-wrapper{
+.main_slider{
     width: 100%;
     height: 900px;
 }
@@ -12,20 +12,18 @@
     top: 25px;
     left: 25px;
 }
-.swiper-slide{
-    background-size: cover, cover !important;
-    font-size: 18px;
+.main_slide{
     display: flex;
-    flex-direction: row;
-    position: relative;
-    top: 0;
-    left: 0;
-    cursor: pointer;
-    height: 900px;
+    background-size: cover, cover !important;
+    justify-content: center;
     width: 100%;
+    position: relative;
+    align-items: center;
 }
-.swiper-slide > img{
+.main_slide > img{
     background-position: center top no-repeat;
-    background-size: cover;
+    background-position: center;
     opacity: 0.5;
+    height: 100%;
+    width: 100%;
 }

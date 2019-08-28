@@ -19,10 +19,22 @@ class MainSlider extends Component {
         return mainGenre;
     };
 
+    genreListTV = genreId => {
+        let mainGenre;
+        if(this.props.tvGenre.genres) {
+            this.props.tvGenre.genres.forEach(genre => {
+                if(genre.id === genreId[0]) {
+                    return mainGenre = genre.name;
+                }
+            });
+        }
+        return mainGenre;
+    }
+
     render() {
         
         (() => {
-            const sliderEl = document.querySelector('.swiper-container');
+            const sliderEl = document.querySelector('.main-swiper-container');
             if(!sliderEl) {
                 return;
             }
@@ -35,31 +47,50 @@ class MainSlider extends Component {
                 autoplay: {
                     delay: 5000,
                 },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
             });
         })();
+
         return(
-            <div className="swiper-container">
-                <div className="swiper-wrapper">
+            <div className="main-swiper-container">
+                <div className="swiper-wrapper main_slider">
+
                 {
                     this.props.items.map((item, i) => {
-                    if (i > 1 && i < 12) {
+                    if (i > 1 && i < 15) {
                         return (
-                            <Link key={item.id} className="swiper-slide">
-                                <img src={this.props.config.images ? this.props.config.images.secure_base_url + this.props.config.images.backdrop_sizes[2] + item.backdrop_path : ''} alt={item.title} style={{height: '100%', width: '100%'}} />
+                            <Link key={item.id} className="swiper-slide main_slide">
+                                <img src={this.props.config.images ? this.props.config.images.secure_base_url + this.props.config.images.backdrop_sizes[2] + item.backdrop_path : ''} alt={item.title} />
                                 <div className="swiper-info">
                                     <p>TRENDING</p>
-                                    <h2>{item.title}</h2>
-                                    <p>{this.genreList(item.genre_ids)} | {item.vote_average} Rating</p>
+                                    <h2>{this.props.itemType === 'MOVIE' ? item.title : item.name}</h2>
+                                    <p>{this.props.itemType === 'MOVIE' ? this.genreList(item.genre_ids) + ' | ' + item.vote_average : this.genreListTV(item.genre_ids) + ' | ' + item.vote_average}</p>
                                 </div>
                             </Link>
                         );
                         }
                     })
                 }
+
                 </div>
             </div>
         );
     }
 };
 
-export default MainSlider;
+const mapStateToProps = state => ({
+    apiKey: state.ApiKeyConfig.apiKey,
+    config: state.ApiKeyConfig,
+
+    itemType: state.setMediaType.itemType,
+
+    movieGenre: state.movieGenre,
+    tvGenre: state.tvGenre,
+    trendingMovie: state.trendingMovie,
+    trendingTV: state.trendingTV,
+});
+
+export default connect(mapStateToProps)(MainSlider);

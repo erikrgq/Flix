@@ -4,6 +4,7 @@ export const POST_SEARCH_RESULT = 'POST_SEARCH_RESULT';
 export const SEARCH_TEXT_REDUCER = 'SEARCH_TEXT_REDUCER';
 export const SET_MEDIA_TYPE_MOVIE = 'SET_MEDIA_TYPE_MOVIE';
 export const SET_MEDIA_TYPE_TV = 'SET_MEDIA_TYPE_TV';
+
 export const TRENDING_MOVIE = 'TRENDING_MOVIE';
 export const MOVIE_GENRE = 'MOVIE_GENRE';
 export const NOW_PLAYING_MOVIES = 'NOW_PLAYING_MOVIES';
@@ -11,8 +12,8 @@ export const POPULAR_MOVIES = 'POPULAR_MOVIES';
 export const TOP_RATED_MOVIES = 'TOP_RATED_MOVIES';
 export const UPCOMING_MOVIES = 'UPCOMING_MOVIES';
 
-export const TV_GENRE = 'TV_GENRE';
 export const TRENDING_TV = 'TRENDING_TV';
+export const TV_GENRE = 'TV_GENRE';
 export const TV_AIRING_TODAY = 'TV_AIRING_TODAY';
 export const TV_ON_THE_AIR = 'TV_ON_THE_AIR';
 export const POPULAR_TV = 'POPULAR_TV';
