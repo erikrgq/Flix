@@ -11,6 +11,7 @@ import tvGenre from './actions/TVActions/tvGenre';
 
 import searchResult from './components/searchResult/SearchResult';
 import Home from './components/home/Home';
+import Details from './components/itemDetails/itemDetails'
 
 class App extends Component{
   componentDidMount(){
@@ -25,9 +26,10 @@ class App extends Component{
     return (
       <Router>
         <div className="App">
-        <Route exact path="/search-result" component={searchResult} />
+        <Route path="/search-result/:id" exact component={searchResult} />
+        <Route path="/details/:type/:id" exact component={Details} />
         <main className="main_home">
-        <Route exact path="/home" component={Home} />
+        <Route path="/" exact component={Home} />
         </main>
         </div>
       </Router>

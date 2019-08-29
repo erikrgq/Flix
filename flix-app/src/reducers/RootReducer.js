@@ -11,6 +11,10 @@ import nowPlayingMovies from './movieReducers/nowPlayingMovies';
 import popularMovies from './movieReducers/popularMovies';
 import topRatedMovies from './movieReducers/topRatedMovies';
 import upcomingMovies from './movieReducers/upcomingMovies';
+import movieCredits from './movieReducers/movieCredits';
+import movieDetails from './movieReducers/movieDetails';
+import movieTrailers from './movieReducers/movieTrailers';
+import movieReviews from './movieReducers/movieReviews';
 
 import trendingTV from './TVReducers/trendingTV';
 import tvGenre from './TVReducers/tvGenre';
@@ -18,6 +22,10 @@ import TVAiringToday from './TVReducers/TVAiringToday';
 import TVOnAir from './TVReducers/TVOnAir';
 import TVPopular from './TVReducers/TVPopular';
 import topRated from './TVReducers/topRated';
+import TVDetails from './TVReducers/TVDetails';
+import TVCredits from './TVReducers/TVCredits';
+import TVTrailers from './TVReducers/TVTrailers';
+import TVReviews from './TVReducers/TVReviews';
 
 export default combineReducers({
     ApiKeyConfig: ApiKeyConfigReducer,
@@ -25,12 +33,17 @@ export default combineReducers({
     searchResult: SearchResultReducer,
     searchText: SearchTextReducer,
     setMediaType: SetMediaType,
+
     trendingMovie,
     movieGenre,
     nowPlayingMovies,
     popularMovies,
     topRatedMovies,
     upcomingMovies,
+    movieCredits,
+    movieDetails,
+    movieTrailers,
+    movieReviews,
 
     trendingTV,
     tvGenre,
@@ -38,4 +51,8 @@ export default combineReducers({
     TVOnAir,
     TVPopular,
     topRated,
+    TVDetails,
+    TVCredits,
+    TVTrailers,
+    TVReviews,
 });

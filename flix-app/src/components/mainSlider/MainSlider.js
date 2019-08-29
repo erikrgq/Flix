@@ -40,9 +40,11 @@ class MainSlider extends Component {
             }
             const slider = new Swiper(sliderEl, {
                 direction: 'verticle',
+                spaceBetween: 0,
                 slidesPerView: 1,
                 loop: true,
                 observer: true,
+                observeSlideChildren: true,
       
                 autoplay: {
                     delay: 5000,
@@ -60,9 +62,9 @@ class MainSlider extends Component {
 
                 {
                     this.props.items.map((item, i) => {
-                    if (i > 1 && i < 15) {
+                    if (i >= 0 && i <= 10) {
                         return (
-                            <Link key={item.id} className="swiper-slide main_slide">
+                            <Link key={item.id} to={`/details/${this.props.itemType.toLowerCase()}/${item.id}`} className="swiper-slide main_slide">
                                 <img src={this.props.config.images ? this.props.config.images.secure_base_url + this.props.config.images.backdrop_sizes[2] + item.backdrop_path : ''} alt={item.title} />
                                 <div className="swiper-info">
                                     <p>TRENDING</p>
