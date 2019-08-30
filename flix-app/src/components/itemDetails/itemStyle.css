@@ -50,4 +50,16 @@
 /*Main section style */
 .item-details-main{
     padding: 1rem;
+    width: 100%;
+}
+.item-details-main-summary{
+    width: 75%;
+    margin: auto;
+    margin-bottom: 50px;
+}
+.item-details-main-cast{
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
 }

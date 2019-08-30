@@ -39,6 +39,7 @@ class MainSlider extends Component {
                 return;
             }
             const slider = new Swiper(sliderEl, {
+                init: true,
                 direction: 'verticle',
                 spaceBetween: 0,
                 slidesPerView: 1,

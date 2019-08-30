@@ -1,0 +1,37 @@
+.cast-container{
+
+}
+.swiper-container-cast{
+    overflow: hidden;
+}
+.cast_wrapper{
+    display: flex;
+    flex-direction: row;
+}
+.cast_slide{
+    
+}
+.cast_slide > img{
+    height: 200px;
+    width: 150px;
+    border-radius: 5px;
+}
+.cast_slide > h3 {
+    font-size: 15px;
+}
+.swiper-button-prev{
+    position: relative;
+    font-size: 50px;
+    bottom: 175px;
+    left: 25px;
+    z-index: 1;
+    cursor: pointer;
+}
+.swiper-button-next{
+    position: relative;
+    font-size: 50px;
+    bottom: 175px;
+    left: 1325px;
+    z-index: 1;
+    cursor: pointer;
+}

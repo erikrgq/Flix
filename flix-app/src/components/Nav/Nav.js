@@ -44,7 +44,7 @@ class Nav extends Component {
                         </Link>
                     </span>
                     <span>
-                        <Link t0={"/profile"}>
+                        <Link to={"/profile"}>
                             <FontAwesomeIcon icon={faUser} className="nav_right_icon" />
                         </Link>
                     </span>

@@ -23,7 +23,7 @@ class itemDetails extends Component {
         this.fetchData(this.props.match.params.id);
     }
     componentDidUpdate(nextProps){
-        if (nextProps.match.params.id !== this.props.match.params.id) {
+        if (this.props.match.params.id !== nextProps.match.params.id) {
             this.fetchData(nextProps.match.params.id, nextProps.match.params.type);
         }
     }
@@ -40,77 +40,131 @@ class itemDetails extends Component {
             this.props.tvReviews(`https://api.themoviedb.org/3/tv/${id}/reviews?api_key=${this.props.apiKey}&language=en-US&page=1`);
             this.props.tvTrailers(`https://api.themoviedb.org/3/tv/${id}/videos?api_key=${this.props.apiKey}&language=en-US`);
         }
-    }
+    };
 
+    itemDetailsHeader = (type) => {
+        if(type === 'movie') {
+            return (
+                <div className="item-details-info-container">
+                    <img className="item-details-info-img" src={this.props.config.images && this.props.MovieDetails.poster_path ? this.props.config.images.secure_base_url + this.props.config.images.backdrop_sizes[2] + this.props.MovieDetails.backdrop_path : ''} alt={this.props.MovieDetails.title} />
+                        
+                    <div className="item-details-info-content">
+        
+                            <img className="content-img" src={this.props.config.images && this.props.MovieDetails.poster_path ? this.props.config.images.secure_base_url + this.props.config.images.poster_sizes[0] + this.props.MovieDetails.poster_path : ''} alt={this.props.MovieDetails.name} />
+                            
+                            <div className="content-info">
+                            <h1>{this.props.MovieDetails.title}</h1>
+                            <div className="content-rating">
+                                <p className="content-rating-digit">{this.props.MovieDetails ? this.props.MovieDetails.vote_average : ''}</p>
+                                <div className="content-rating-star">+ - + -</div>
+                            </div>
+                            <p className="content-detail">{this.props.MovieDetails ? this.props.MovieDetails.status : ''} {this.props.MovieDetails.release_date ? this.formatYear(this.props.MovieDetails.release_date) : ''} | {this.props.MovieDetails.original_language ? this.props.MovieDetails.original_language.toUpperCase(): ''}</p>
+                            <p className="content-genre">genre</p>
+                            </div>
+                            
+                    </div>
 
+                </div>
+            );
+        } else if(type === 'tv') {
+            return (
+                <div className="item-details-info-container">
+                    <img className="item-details-info-img" src={this.props.config.images && this.props.TVDetails.poster_path ? this.props.config.images.secure_base_url + this.props.config.images.backdrop_sizes[2] + this.props.TVDetails.backdrop_path : ''} alt={this.props.TVDetails.name} />
+                        
+                    <div className="item-details-info-content">
+        
+                            <img className="content-img" src={this.props.config.images && this.props.TVDetails.poster_path ? this.props.config.images.secure_base_url + this.props.config.images.poster_sizes[0] + this.props.TVDetails.poster_path : ''} alt="" />
+                            
+                            <div className="content-info">
+                            <h1>{this.props.TVDetails ? this.props.TVDetails.name : ''}</h1>
+                            <div className="content-rating">
+                                <p className="content-rating-digit">{this.props.TVDetails ? this.props.TVDetails.vote_average : ''}</p>
+                                <div className="content-rating-star">+ - + -</div>
+                            </div>
+                            <p className="content-detail">{this.props.TVDetails ? this.props.TVDetails.status : ''} {this.props.TVDetails.first_air_date ? this.formatYear(this.props.TVDetails.first_air_date) : ''} | {this.props.TVDetails.original_language ? this.props.TVDetails.original_language.toUpperCase(): ''}</p>
+                            <p className="content-genre">genre</p>
+                            </div>
+                            
+                    </div>
 
-    itemDetailsHeader = type =>{
-        const config = this.props.config;
+                </div>
+            );
+        }
+    };
 
-        switch(type) {
+    itemDetailsSum = (type) => {
+        switch(type){
             case 'movie':
                 return(
-                    <div></div>
+                    <div className="item-details-main-summary">
+                        <h2 className="summary">Summary</h2>
+                        <p>{this.props.MovieDetails.overview}</p>
+                    </div>
                 );
             case 'tv':
                 return(
-                    <div className="item-details-info-container">
-               
+                    <div className="item-details-main-summary">
+                        <h2 className="summary">Summary</h2>
+                        <p>{this.props.TVDetails.overview}</p>
+                    </div>
+                );
+            default:
+                return null; 
+        }
+    };
 
+    itemDetailsCast = type => {
+        switch(type){
+            case 'movie':
+                return(
+                    <div className="item-details-main-cast">
+                        <h2 className="cast">Cast</h2>
+                        <Cast config={this.props.config} people={this.props.MovieCredits.cast ? this.props.MovieCredits.cast : ''} />
+                    </div>
+                );
+            case 'tv':
+                return(
+                    <div className="item-details-main-cast">
+                        <h2 className="cast">Cast</h2>
+                        <Cast config={this.props.config} people={this.props.TVCredits.cast ? this.props.TVCredits.cast : ''} />
                     </div>
                 );
             default:
                 return null;
         }
-    }
+    };
 
     formatYear = date => date.split('-')[0];
-    
 
     render(){
         return (
             <div className="item-details">
                 <header className="item-details-header">
                     <div className="item-details-info-nav">
-                        <span><FontAwesomeIcon icon={faCaretLeft} onClick={() => this.props.history.goBack()}/></span>
+                    <span><FontAwesomeIcon icon={faCaretLeft} onClick={() => this.props.history.goBack()}/></span>
                     </div>
+                    {this.itemDetailsHeader(this.props.match.params.type)}
                     
-                    <div className="item-details-info-container">
-                        <img className="item-details-info-img" src="https://i.redd.it/vv5d3lisi7m01.png" alt="" />
-                        
-                        <div className="item-details-info-content">
-        
-                            <img className="content-img" src="" alt="" />
-                            
-                            <div className="content-info">
-                            <h1>{this.props.movieDetails.title}</h1>
-                            <div className="content-rating">
-                                <p className="content-rating-digit">{this.props.movieDetails ? this.props.movieDetails.vote_average : ''}</p>
-                                <div className="content-rating-star">+ - + -</div>
-                            </div>
-                            <p className="content-detail">{this.props.movieDetails ? this.props.movieDetails.status : ''} 2019 | {this.props.movieDetails.original_language ? this.props.movieDetails.original_language.toUpperCase(): ''}</p>
-                            <p className="content-genre">{this.props.movieDetails.genres ? `${this.props.movieDetails.genres[0] ? this.props.movieDetails.genres[0].name : ''}` `${this.props.movieDetails.genres[1] ? ' | ' + this.props.movieDetails.genres[1].name : ''}`: ''}</p>
-                            </div>
-                            
-                        </div>
-
-                    </div>
                 </header>
 
                 <main className="item-details-main" >
-                        <div className="item-details-main-summary">
-                            <h2 className="summary">Summary</h2>
-                            <p>here is where the story overview goes</p>
+                        {this.itemDetailsSum(this.props.match.params.type)}
+
+                        {this.itemDetailsCast(this.props.match.params.type)}
+
+                        <div className="item-details-main-trailers">
+                            <h2 className="trailers">Trailers</h2>
+
                         </div>
 
-                        <div className="item-details-main-cast">
-                            <h2 className="cast">Cast</h2>
-                            <Cast config={this.props.config} people={this.props.movieCredits.cast ? this.props.movieCredits.cast : ''} />
+                        <div className="item-details-main-reviews">
+                            <h2 className="reviews">Reviews</h2>
+
                         </div>
                 </main>
             </div>
         );
-    }
+    };
 };
 
 const mapStateToProps = state => ({
@@ -119,15 +173,15 @@ const mapStateToProps = state => ({
 
     itemType: state.setMediaType.itemType,
 
-    movieDetails: state.movieDetails,
-    movieCredits: state.movieCredits,
-    movieTrailers: state.movieTrailers,
-    movieReviews: state.movieReviews,
+    MovieDetails: state.movieDetails,
+    MovieCredits: state.movieCredits,
+    MovieTrailers: state.movieTrailers,
+    MovieReviews: state.movieReviews,
 
-    tvDetails: state.TVDetails,
-    tvCredits: state.TVCredits,
-    tvTrailers: state.TVTrailers,
-    tvReviews: state.TVReviews,
+    TVDetails: state.TVDetails,
+    TVCredits: state.TVCredits,
+    TVTrailers: state.TVTrailers,
+    TVReviews: state.TVReviews,
 
 });
 
