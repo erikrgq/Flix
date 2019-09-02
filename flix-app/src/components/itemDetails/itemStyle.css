@@ -4,6 +4,7 @@
 .item-details-header{
     height: 100vh;
     width: 100%;
+    position: relative;
 }
 .item-details-info-nav > span {
     position: absolute;
@@ -51,15 +52,51 @@
 .item-details-main{
     padding: 1rem;
     width: 100%;
+    display: block;
 }
-.item-details-main-summary{
+.item-details-main-summary, .item-details-main-cast, .item-details-main-trailers, .item-details-main-reviews{
     width: 75%;
     margin: auto;
     margin-bottom: 50px;
 }
-.item-details-main-cast{
-    width: 75%;
+.item-details-main-title{
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+.reviews_content{
+    padding: 25px;
+    background-color: #393939;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+.reviews_content > h4{
+    display: inline-block;
+    border-bottom: 2px solid;
+    margin-bottom: 10px;
+}
+.show-more{
+    text-decoration: none;
+    color: #f9f9f9;
     display: flex;
-    flex-direction: column;
-    margin: auto;
+    justify-content: flex-end;
+    transition: 250ms;
+}
+.show-more > p{
+    border-bottom: 2px solid transparent;
+}
+.show-more > p:hover{
+    border-bottom: 2px solid;
+}
+
+/**Responsive design*/
+@media only screen and (max-width: 640px){
+    .item-details-header{
+        height: 400px;
+    }
+    .item-details-info-img{
+        height: 400px;
+    }
+    .item-details-main-summary, .item-details-main-cast, .item-details-main-trailers, .item-details-main-reviews{
+        width: 100%;
+    }
 }

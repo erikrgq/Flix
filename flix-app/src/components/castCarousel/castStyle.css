@@ -1,37 +1,51 @@
 .cast-container{
-
 }
 .swiper-container-cast{
     overflow: hidden;
+    position: relative;
 }
 .cast_wrapper{
     display: flex;
     flex-direction: row;
+    align-content: center;
 }
 .cast_slide{
-    
+    height: 250px;
+    width: 150px;
 }
-.cast_slide > img{
+.cast-img{
     height: 200px;
     width: 150px;
     border-radius: 5px;
 }
-.cast_slide > h3 {
-    font-size: 15px;
+.cast-name{
+    font-size: 12px;
 }
-.swiper-button-prev{
-    position: relative;
+.cast-button-prev{
+    position: absolute;
     font-size: 50px;
-    bottom: 175px;
-    left: 25px;
+    top: 50px;
+    left: 0;
     z-index: 1;
     cursor: pointer;
 }
-.swiper-button-next{
-    position: relative;
+.cast-button-next{
+    position: absolute;
     font-size: 50px;
-    bottom: 175px;
-    left: 1325px;
+    top: 50px;
+    right: 0;
     z-index: 1;
     cursor: pointer;
+}
+
+/**Responsive design*/
+@media only screen and (max-width: 640px){
+    .cast_slide{
+        height: 200px;
+        width: 100px;
+    }
+    .cast-img{
+        height: 150px;
+        width: 100px;
+    }
 }

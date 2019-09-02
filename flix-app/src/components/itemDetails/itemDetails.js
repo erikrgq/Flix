@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import movieDetails from '../../actions/movieActions/movieDetails';
 import movieCredits from '../../actions/movieActions/movieCredits';
@@ -13,6 +12,7 @@ import tvTrailers from '../../actions/TVActions/TVTrailers';
 import tvReviews from '../../actions/TVActions/TVReviews';
 
 import Cast from '../castCarousel/castCarousel';
+import Trailer from '../trailerCarousel/trailerCarousel'
 
 import './itemStyle.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -56,10 +56,10 @@ class itemDetails extends Component {
                             <h1>{this.props.MovieDetails.title}</h1>
                             <div className="content-rating">
                                 <p className="content-rating-digit">{this.props.MovieDetails ? this.props.MovieDetails.vote_average : ''}</p>
-                                <div className="content-rating-star">+ - + -</div>
+                                <div className="content-rating-star"></div>
                             </div>
                             <p className="content-detail">{this.props.MovieDetails ? this.props.MovieDetails.status : ''} {this.props.MovieDetails.release_date ? this.formatYear(this.props.MovieDetails.release_date) : ''} | {this.props.MovieDetails.original_language ? this.props.MovieDetails.original_language.toUpperCase(): ''}</p>
-                            <p className="content-genre">genre</p>
+                            <p className="content-genre">{this.props.MovieDetails.genres ? `${this.props.MovieDetails.genres[0] ? this.props.MovieDetails.genres[0].name : ''}` + `${this.props.MovieDetails.genres[1] ? ' | ' + this.props.MovieDetails.genres[1].name : ''}`: ''}</p>
                             </div>
                             
                     </div>
@@ -73,16 +73,16 @@ class itemDetails extends Component {
                         
                     <div className="item-details-info-content">
         
-                            <img className="content-img" src={this.props.config.images && this.props.TVDetails.poster_path ? this.props.config.images.secure_base_url + this.props.config.images.poster_sizes[0] + this.props.TVDetails.poster_path : ''} alt="" />
+                            <img className="content-img" src={this.props.config.images && this.props.TVDetails.poster_path ? this.props.config.images.secure_base_url + this.props.config.images.poster_sizes[0] + this.props.TVDetails.poster_path : ''} alt={this.props.TVDetails.name} />
                             
                             <div className="content-info">
                             <h1>{this.props.TVDetails ? this.props.TVDetails.name : ''}</h1>
                             <div className="content-rating">
                                 <p className="content-rating-digit">{this.props.TVDetails ? this.props.TVDetails.vote_average : ''}</p>
-                                <div className="content-rating-star">+ - + -</div>
+                                <div className="content-rating-star"></div>
                             </div>
                             <p className="content-detail">{this.props.TVDetails ? this.props.TVDetails.status : ''} {this.props.TVDetails.first_air_date ? this.formatYear(this.props.TVDetails.first_air_date) : ''} | {this.props.TVDetails.original_language ? this.props.TVDetails.original_language.toUpperCase(): ''}</p>
-                            <p className="content-genre">genre</p>
+                            <p className="content-genre">{this.props.TVDetails.genres ? `${this.props.TVDetails.genres[0] ? this.props.TVDetails.genres[0].name : ''}` +  `${this.props.TVDetails.genres[1] ? ' | ' + this.props.TVDetails.genres[1].name : ''}` : ''}</p>
                             </div>
                             
                     </div>
@@ -97,14 +97,14 @@ class itemDetails extends Component {
             case 'movie':
                 return(
                     <div className="item-details-main-summary">
-                        <h2 className="summary">Summary</h2>
+                        <h2 className="item-details-main-title">Summary</h2>
                         <p>{this.props.MovieDetails.overview}</p>
                     </div>
                 );
             case 'tv':
                 return(
                     <div className="item-details-main-summary">
-                        <h2 className="summary">Summary</h2>
+                        <h2 className="item-details-main-title">Summary</h2>
                         <p>{this.props.TVDetails.overview}</p>
                     </div>
                 );
@@ -118,15 +118,74 @@ class itemDetails extends Component {
             case 'movie':
                 return(
                     <div className="item-details-main-cast">
-                        <h2 className="cast">Cast</h2>
+                        <h2 className="item-details-main-title">Cast</h2>
                         <Cast config={this.props.config} people={this.props.MovieCredits.cast ? this.props.MovieCredits.cast : ''} />
                     </div>
                 );
             case 'tv':
                 return(
                     <div className="item-details-main-cast">
-                        <h2 className="cast">Cast</h2>
-                        <Cast config={this.props.config} people={this.props.TVCredits.cast ? this.props.TVCredits.cast : ''} />
+                        <h2 className="item-details-main-title">Cast</h2>
+                        <Cast config={this.props.config} people={this.props.TVCredits.cast} />
+                    </div>
+                );
+            default:
+                return null;
+        }
+    };
+
+    itemDetailsTrailers = type => {
+        switch(type) {
+            case 'movie':
+                return(
+                    <div className="item-details-main-trailers">
+                        <h2 className="item-details-main-title">Trailers</h2>
+                        {this.props.MovieTrailers ? 
+                        <Trailer trailers={this.props.MovieTrailers.results} />
+                            : <p>No Trailers Found...</p>
+                        }
+                    </div>
+
+                );
+            case 'tv':
+                return(
+                    <div className="item-details-main-trailers">
+                        <h2 className="item-details-main-title">Trailers</h2>
+                        <Trailer trailers={this.props.TVTrailers.results} />
+                    </div>
+                );
+            default:
+                return null;
+        }
+    };
+
+    itemDetailsReviews = type => {
+        switch(type) {
+            case 'movie':
+                return(
+                    <div className="item-details-main-reviews">
+                        <h2 className="item-details-main-title">Reviews</h2>
+                        {this.props.MovieReviews.results ? this.props.MovieReviews.results.map(review => (
+                            <div key={review.id} className="reviews_content">
+                                <h4>{review.author}</h4>
+                                <p>{this.shortText(review.content)}</p>
+                                <a href={review.url} target="_blank" className="show-more"><p>Read full review</p></a>
+                            </div>
+                        )) : (<div className="reviews_content" ><h4>No Reviews Found...</h4></div>)}
+                    </div>
+                );
+            case 'tv':
+                return(
+                    <div className="item-details-main-reviews">
+                        <h2 className="item-details-main-title">Reviews</h2>
+                        {this.props.TVReviews.results ? this.props.TVReviews.results.map(review => (
+                            <div key={review.id} className="reviews_content">
+                                <h4>{review.author}</h4>
+                                <p>{this.shortText(review.content)}</p>
+                                <a href={review.url} target="_blank" className="show-more"><p>Read full review</p></a>
+                            </div>
+                        )) : (<div className="reviews_content" ><h4>No Reviews Found...</h4></div>)
+                        }
                     </div>
                 );
             default:
@@ -135,6 +194,11 @@ class itemDetails extends Component {
     };
 
     formatYear = date => date.split('-')[0];
+
+    shortText = (str, length = 60) => {
+        const strArr = str.split(' ');
+        return strArr.length < length ? str : strArr.filter((word, i) => i < length).join(' ') + '...';
+    };
 
     render(){
         return (
@@ -152,15 +216,9 @@ class itemDetails extends Component {
 
                         {this.itemDetailsCast(this.props.match.params.type)}
 
-                        <div className="item-details-main-trailers">
-                            <h2 className="trailers">Trailers</h2>
-
-                        </div>
-
-                        <div className="item-details-main-reviews">
-                            <h2 className="reviews">Reviews</h2>
-
-                        </div>
+                        {this.itemDetailsTrailers(this.props.match.params.type)}
+                        
+                        {this.itemDetailsReviews(this.props.match.params.type)}
                 </main>
             </div>
         );
@@ -173,10 +231,10 @@ const mapStateToProps = state => ({
 
     itemType: state.setMediaType.itemType,
 
-    MovieDetails: state.movieDetails,
-    MovieCredits: state.movieCredits,
-    MovieTrailers: state.movieTrailers,
-    MovieReviews: state.movieReviews,
+    MovieDetails: state.MovieDetails,
+    MovieCredits: state.MovieCredits,
+    MovieTrailers: state.MovieTrailers,
+    MovieReviews: state.MovieReviews,
 
     TVDetails: state.TVDetails,
     TVCredits: state.TVCredits,

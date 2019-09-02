@@ -1,0 +1,42 @@
+.trailer-swiper{
+    position: relative;
+}
+.swiper-container-trailer{
+    overflow: hidden;
+    position: relative;
+}
+.trailer_wrapper{
+    display: flex;
+    flex-direction: row;
+}
+.trailer_slide{
+    height: 200px;
+    width: 345px;
+    opacity: 0.75;
+    transition: 250ms;
+}
+.trailer_slide:hover{
+    opacity: 1;
+}
+.trailer_slide > iframe{
+    border: none;
+    border-radius: 5px;
+    height: 200px;
+    width: 347px;
+}
+.trailer-button-prev{
+    position: absolute;
+    font-size: 50px;
+    top: 70px;
+    left: 0;
+    z-index: 1;
+    cursor: pointer;
+}
+.trailer-button-next{
+    position: absolute;
+    font-size: 50px;
+    top: 70px;
+    right: 0;
+    z-index: 1;
+    cursor: pointer;
+}

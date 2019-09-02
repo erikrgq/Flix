@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
+import Swiper from 'swiper';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import './mediaStyle.css';
 
 class MediaCarousel extends Component {
@@ -16,6 +19,35 @@ class MediaCarousel extends Component {
         if(!this.props.items) {
             return;
         }
+        // Init swiper
+        (() => {
+            const sliderEl = document.querySelectorAll('.media-swiper-container');
+            if(!sliderEl){
+            return;
+            }
+            const slider = new Swiper(sliderEl, {
+            init: true,
+            slidesPerView: 7,
+            loop: true,
+            spaceBetween: 14,
+            observer: true,
+    
+            breakpoints: {
+                1145: {
+                slidesPerView: 5,
+                spaceBetween: 10,
+                },
+                699: {
+                slidesPerView: 3,
+                spaceBetween: 10,
+                },
+            },
+            navigation: {
+                nextEl: '.media-button-next',
+                prevEl: '.media-button-prev',
+            }
+            });
+        })();
         return (
             
             <div className="media-container">
@@ -24,21 +56,29 @@ class MediaCarousel extends Component {
                     <h2>{this.props.title}</h2>
 
                     <div className="swiper-wrapper media_wrapper">
+
                     {this.props.items.map((movie, i) => (
                         <div key={movie.id} className="swiper-slide media_slide">
-                            <Link to={`/details`}>
-                            <span>{movie.vote_average}</span>
-                            <img src={`${config.images ? config.images.secure_base_url : ''}${config.images ? config.images.poster_sizes[1] : ''}${movie.poster_path}`} alt={movie.title} />
-                                <h3>{movie.title}</h3>
+
+                            <Link to={`/details/${this.props.type.toLowerCase()}/${movie.id}`}>
+                                <span>{movie.vote_average} <FontAwesomeIcon icon={faStar} /></span>
+
+                                <figure className="media_figure">
+                                <img src={`${config.images ? config.images.secure_base_url : ''}${config.images ? config.images.poster_sizes[1] : ''}${movie.poster_path}`} alt={movie.title} />
+                                </figure>
+
+                                <h4>{movie.title}</h4>
                                 <p>{this.renderGenres(movie.genre_ids)}</p>
                             </Link>
+
                         </div>
                     ))}
+
                     </div>
 
 
-                    <div className="swiper-button-prev"></div>
-                    <div className="swiper-button-next"></div>
+                    <span className="media-button-prev"><FontAwesomeIcon icon={faChevronLeft}/></span>
+                    <span className="media-button-next"><FontAwesomeIcon icon={faChevronRight}/></span>
 
                 </section>
 

@@ -46,20 +46,17 @@ class MainSlider extends Component {
                 loop: true,
                 observer: true,
                 observeSlideChildren: true,
-      
+                
                 autoplay: {
                     delay: 5000,
-                },
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
+                    disableOnInteraction: false,
                 },
             });
         })();
 
         return(
             <div className="main-swiper-container">
-                <div className="swiper-wrapper main_slider">
+                <div className="swiper-wrapper main_wrapper">
 
                 {
                     this.props.items.map((item, i) => {

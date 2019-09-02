@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Swiper from 'swiper';
@@ -18,29 +18,24 @@ class castCarousel extends Component {
                return;
              }
              const slider = new Swiper(sliderEl, {
-               init: true,
                slidesPerView: 5,
                slidesPerGroup: 5,
                loop: true,
                spaceBetween: 100,
                observer: true,
-               observeSlideChildren: true,
-      
+
                breakpoints: {
                  768: {
-                   slidesPerView: 5
+                   slidesPerView: 5,
                  },
                  640: {
-                   slidesPerView: 3
+                   slidesPerView: 3,
+                   spaceBetween: 50,
                  },
                },
-               pagination: {
-                 el: '.swiper-pagination',
-                 clickable: true
-               },
                navigation: {
-                 nextEl: '.swiper-button-next',
-                 prevEl: '.swiper-button-prev',
+                 nextEl: '.cast-button-next',
+                 prevEl: '.cast-button-prev',
                }
              });
           })();
@@ -63,8 +58,8 @@ class castCarousel extends Component {
                             })}
                         </div>
 
-                        <span className="swiper-button-prev"><FontAwesomeIcon icon={faChevronLeft} /></span>
-                        <span className="swiper-button-next"><FontAwesomeIcon icon={faChevronRight} /></span>
+                        <span className="cast-button-prev"><FontAwesomeIcon icon={faChevronLeft} /></span>
+                        <span className="cast-button-next"><FontAwesomeIcon icon={faChevronRight} /></span>
 
                     </div>
                     :

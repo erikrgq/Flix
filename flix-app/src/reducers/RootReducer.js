@@ -11,10 +11,10 @@ import nowPlayingMovies from './movieReducers/nowPlayingMovies';
 import popularMovies from './movieReducers/popularMovies';
 import topRatedMovies from './movieReducers/topRatedMovies';
 import upcomingMovies from './movieReducers/upcomingMovies';
-import movieCredits from './movieReducers/movieCredits';
-import movieDetails from './movieReducers/movieDetails';
-import movieTrailers from './movieReducers/movieTrailers';
-import movieReviews from './movieReducers/movieReviews';
+import MovieCredits from './movieReducers/movieCredits';
+import MovieDetails from './movieReducers/movieDetails';
+import MovieTrailers from './movieReducers/movieTrailers';
+import MovieReviews from './movieReducers/movieReviews';
 
 import trendingTV from './TVReducers/trendingTV';
 import tvGenre from './TVReducers/tvGenre';
@@ -40,10 +40,10 @@ export default combineReducers({
     popularMovies,
     topRatedMovies,
     upcomingMovies,
-    movieCredits,
-    movieDetails,
-    movieTrailers,
-    movieReviews,
+    MovieCredits,
+    MovieDetails,
+    MovieTrailers,
+    MovieReviews,
 
     trendingTV,
     tvGenre,
