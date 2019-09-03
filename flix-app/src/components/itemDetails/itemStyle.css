@@ -46,6 +46,11 @@
 }
 .content-rating{
     display: flex;
+    align-items: center;
+}
+.content-rating-digit{
+    font-size: 1rem;
+    margin-right: 5px;
 }
 
 /*Main section style */
@@ -89,14 +94,31 @@
 }
 
 /**Responsive design*/
-@media only screen and (max-width: 640px){
+@media only screen and (max-width: 1050px){
+    .item-details-info-nav > span {
+        position: absolute;
+        top: 5px;
+        left: 10px;
+    }
     .item-details-header{
-        height: 400px;
+        height: 33vh;
     }
     .item-details-info-img{
-        height: 400px;
+        height: 33vh;
     }
     .item-details-main-summary, .item-details-main-cast, .item-details-main-trailers, .item-details-main-reviews{
         width: 100%;
+    }
+    .item-details-info-content{
+        bottom: 10px;
+        left: 25px;
+    }
+    .content-img{
+        height: 110px;
+        margin-right: 10px;
+    }
+    .content-info{
+        font-size: .75rem;
+        line-height: 1.20;
     }
 }

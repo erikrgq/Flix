@@ -35,7 +35,7 @@ header > hr {
     transition: opacity .2s;
 }
 .search_result_title{
-    font-size: 1rem;
+    font-size: .8rem;
     margin: 0;
     text-align: left;
 }
@@ -43,4 +43,18 @@ header > hr {
     border-radius: 10px;
     height: auto;
     width: 130px;
+}
+
+/*Mobile style*/
+@media only screen and (max-width: 640px){
+    .search_results_main{
+        width: 100%;
+        padding: 100px 0;
+    }
+    header > h1 {
+        font-size: 1rem;
+    }
+    .search_result_body{
+        grid-template-columns: repeat(2, 130px);
+    }
 }

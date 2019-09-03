@@ -7,12 +7,13 @@ footer{
     justify-items: center;
     background-color: #393939;
     margin-top: 50px;
+    font-size: 1rem;
+    padding: 10px;
 }
 .main-footer-info{
     display: grid;
     grid-template-rows: repeat(3, 1fr);
     align-items: center;
-    height: 100%;
 }
 .main-footer-info > h1{
     font-size: 3rem;
@@ -32,7 +33,7 @@ footer{
     display: grid;
     grid-template-rows: repeat(3, 1fr);
     align-items: center;
-    height: 100%;
+    font-size: 1.5rem;
 }
 .main-footer-contact > li{
     list-style-type: none;
@@ -43,5 +44,18 @@ footer{
 .main-footer-contact > li > a{
     text-decoration: none;
     color: #f9f9f9;
-    font-size: 1.5rem;
+}
+
+@media only screen and (max-width: 640px){
+    .main-footer-logo > img{
+        width: 75px;
+        height: 75px;
+    }
+    .main-footer-info > a {
+        border-bottom: 2px solid #f9f9f9;
+        font-size: .8rem;
+    }
+    .main-footer-contact{
+        font-size: 1rem;
+    }
 }

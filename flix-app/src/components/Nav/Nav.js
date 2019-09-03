@@ -3,8 +3,9 @@ import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import './navStyle.css';
+import Flixlogo from './Flixlogo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilm, faHome, faUser, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faUser, faSearch } from '@fortawesome/free-solid-svg-icons';
 
 import saveText from '../../actions/SearchTextAction';
 import searchResult from '../../actions/SearchResultAction';
@@ -14,13 +15,18 @@ class Nav extends Component {
         const searchInput = e.target.value;
         this.props.saveText(searchInput);
     }
+
+    componentDidMount(){
+        this.props.searchResult(`https://api.themoviedb.org/3/search/multi?api_key=${this.props.apiKey}&language=en-US&query=${toString(this.props.searchInput)}&page=1&include_adult=false&region=US`);
+    }
+
     
     render() {
         return (
             <nav>
-                <span>
-                    <FontAwesomeIcon icon={faFilm} className="nav_home" />
-                </span>
+                
+                <img src={Flixlogo} alt="Flix Logo" className="nav_home" />
+                
                 <form className="nav_search" >
                     <input 
                         className="search_left" 
@@ -39,7 +45,7 @@ class Nav extends Component {
                 </form>
                 <div className="nav_right">
                     <span>
-                        <Link to={"/home"}>
+                        <Link to={"/"}>
                             <FontAwesomeIcon icon={faHome} className="nav_right_icon" />
                         </Link>
                     </span>

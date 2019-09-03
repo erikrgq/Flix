@@ -26,15 +26,14 @@ import './homeStyle.css';
 class Home extends Component {
     //checks for media type
     componentDidMount() {
-        if(this.props.itemType === 'MOVIE') {
-            this.handleMovieFetch();
-        }
+        this.handleMovieFetch();
+        this.handleTVFetch();
     }
-    componentDidUpdate() {
+    /*componentDidUpdate() {
         if(this.props.itemType === 'TV') {
             this.handleTVFetch();
         }
-    }
+    }*/
 
     //fetches data
     handleMovieFetch = () => {
@@ -81,6 +80,7 @@ class Home extends Component {
                     {movie}
                 </div>
                 <MainFooter />
+                <Loader />
             </div>
         )
     }

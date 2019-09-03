@@ -12,7 +12,9 @@ import tvTrailers from '../../actions/TVActions/TVTrailers';
 import tvReviews from '../../actions/TVActions/TVReviews';
 
 import Cast from '../castCarousel/castCarousel';
-import Trailer from '../trailerCarousel/trailerCarousel'
+import Trailer from '../trailerCarousel/trailerCarousel';
+import Stars from '../stars/starRating';
+import Loader from '../Loader/Loader';
 
 import './itemStyle.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -46,7 +48,7 @@ class itemDetails extends Component {
         if(type === 'movie') {
             return (
                 <div className="item-details-info-container">
-                    <img className="item-details-info-img" src={this.props.config.images && this.props.MovieDetails.poster_path ? this.props.config.images.secure_base_url + this.props.config.images.backdrop_sizes[2] + this.props.MovieDetails.backdrop_path : ''} alt={this.props.MovieDetails.title} />
+                    <img className="item-details-info-img" src={this.props.config.images && this.props.MovieDetails.backdrop_path ? this.props.config.images.secure_base_url + this.props.config.images.backdrop_sizes[2] + this.props.MovieDetails.backdrop_path : ''} alt={this.props.MovieDetails.title} />
                         
                     <div className="item-details-info-content">
         
@@ -56,9 +58,10 @@ class itemDetails extends Component {
                             <h1>{this.props.MovieDetails.title}</h1>
                             <div className="content-rating">
                                 <p className="content-rating-digit">{this.props.MovieDetails ? this.props.MovieDetails.vote_average : ''}</p>
-                                <div className="content-rating-star"></div>
+                                <Stars rating={this.props.MovieDetails ? this.props.MovieDetails.vote_average : ''} />
                             </div>
-                            <p className="content-detail">{this.props.MovieDetails ? this.props.MovieDetails.status : ''} {this.props.MovieDetails.release_date ? this.formatYear(this.props.MovieDetails.release_date) : ''} | {this.props.MovieDetails.original_language ? this.props.MovieDetails.original_language.toUpperCase(): ''}</p>
+                            {this.props.MovieDetails.budget ? 'Budget $' + this.formatNum(this.props.MovieDetails.budget) : 'No Budget Found' } 
+                            <p className="content-detail">{this.props.MovieDetails ? this.props.MovieDetails.status : ''} {this.props.MovieDetails.release_date ? this.formatYear(this.props.MovieDetails.release_date) : ''} | {this.props.MovieDetails.runtime ? this.props.MovieDetails.runtime + " MINS" : ''} | {this.props.MovieDetails.original_language ? this.props.MovieDetails.original_language.toUpperCase(): ''}</p>
                             <p className="content-genre">{this.props.MovieDetails.genres ? `${this.props.MovieDetails.genres[0] ? this.props.MovieDetails.genres[0].name : ''}` + `${this.props.MovieDetails.genres[1] ? ' | ' + this.props.MovieDetails.genres[1].name : ''}`: ''}</p>
                             </div>
                             
@@ -79,9 +82,9 @@ class itemDetails extends Component {
                             <h1>{this.props.TVDetails ? this.props.TVDetails.name : ''}</h1>
                             <div className="content-rating">
                                 <p className="content-rating-digit">{this.props.TVDetails ? this.props.TVDetails.vote_average : ''}</p>
-                                <div className="content-rating-star"></div>
+                                <Stars rating={this.props.TVDetails ? this.props.TVDetails.vote_average : ''} />
                             </div>
-                            <p className="content-detail">{this.props.TVDetails ? this.props.TVDetails.status : ''} {this.props.TVDetails.first_air_date ? this.formatYear(this.props.TVDetails.first_air_date) : ''} | {this.props.TVDetails.original_language ? this.props.TVDetails.original_language.toUpperCase(): ''}</p>
+                            <p className="content-detail">{this.props.TVDetails ? this.props.TVDetails.status : ''} {this.props.TVDetails.next_episode_to_air ? this.formatYear(this.props.TVDetails.next_episode_to_air.air_date) : ''} | {this.props.TVDetails.original_language ? this.props.TVDetails.original_language.toUpperCase(): ''}</p>
                             <p className="content-genre">{this.props.TVDetails.genres ? `${this.props.TVDetails.genres[0] ? this.props.TVDetails.genres[0].name : ''}` +  `${this.props.TVDetails.genres[1] ? ' | ' + this.props.TVDetails.genres[1].name : ''}` : ''}</p>
                             </div>
                             
@@ -169,7 +172,7 @@ class itemDetails extends Component {
                             <div key={review.id} className="reviews_content">
                                 <h4>{review.author}</h4>
                                 <p>{this.shortText(review.content)}</p>
-                                <a href={review.url} target="_blank" className="show-more"><p>Read full review</p></a>
+                                <a href={review.url} target="_blank" rel="noopener noreferrer" className="show-more"><p>Read full review</p></a>
                             </div>
                         )) : (<div className="reviews_content" ><h4>No Reviews Found...</h4></div>)}
                     </div>
@@ -182,7 +185,7 @@ class itemDetails extends Component {
                             <div key={review.id} className="reviews_content">
                                 <h4>{review.author}</h4>
                                 <p>{this.shortText(review.content)}</p>
-                                <a href={review.url} target="_blank" className="show-more"><p>Read full review</p></a>
+                                <a href={review.url} target="_blank" rel="noopener noreferrer" className="show-more"><p>Read full review</p></a>
                             </div>
                         )) : (<div className="reviews_content" ><h4>No Reviews Found...</h4></div>)
                         }
@@ -193,12 +196,18 @@ class itemDetails extends Component {
         }
     };
 
+    //uses 
     formatYear = date => date.split('-')[0];
 
     shortText = (str, length = 60) => {
         const strArr = str.split(' ');
         return strArr.length < length ? str : strArr.filter((word, i) => i < length).join(' ') + '...';
     };
+
+    formatNum = (n) => {
+        let parts=n.toString().split(".");
+        return parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (parts[1] ? "." + parts[1] : "");
+    }
 
     render(){
         return (
@@ -220,6 +229,7 @@ class itemDetails extends Component {
                         
                         {this.itemDetailsReviews(this.props.match.params.type)}
                 </main>
+                <Loader />
             </div>
         );
     };
