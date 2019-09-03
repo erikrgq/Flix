@@ -19,27 +19,15 @@ class SearchResult extends Component {
 
     //initial data fetching
     componentDidMount(){
-        this.props.searchResult(`https://api.themoviedb.org/3/search/multi?api_key=${this.props.apiKey}&language=en-US&query=${toString(this.props.searchInput)}&page=1&include_adult=false&region=US`);
+        this.props.searchResult(`https://api.themoviedb.org/3/search/multi?api_key=${this.props.apiKey}&language=en-US&query=${this.props.match.params.id}&page=1&include_adult=false&region=US`);
     }
 
     //will fetch new data
     componentDidUpdate(nextProps) {
-        if(this.props.searchInput !== nextProps.searchInput){
-            this.props.searchResult(`https://api.themoviedb.org/3/search/multi?api_key=${this.props.apiKey}&language=en-US&query=${this.props.searchInput}&page=${this.state.page}&include_adult=false&region=US`);
+        if(this.props.match.params !== nextProps.id){
+            this.props.searchResult(`https://api.themoviedb.org/3/search/multi?api_key=${this.props.apiKey}&language=en-US&query=${this.props.match.params.id}&page=${this.state.page}&include_adult=false&region=US`);
         }
     }
-
-    //renders pagination according to the state fo the component
-    /*handlePagination = pageTransition => {
-        if (this.state.page === 1 && pageTransition === '-') {
-          this.setState({ page: 1 });
-        } else if (pageTransition === '+') {
-          this.setState({ page: this.state.page + 1 })
-        } else if (pageTransition === '+') {
-          this.setState({ page: this.state.page - 1 })
-        }
-        this.props.searchData(`https://api.themoviedb.org/3/search/multi?api_key=${this.props.apiKey}&language=en-US&query=${this.props.searchInput}&page=${this.state.page}&include_adult=false&region=US`);
-    }*/
 
     parseSearchStr = str => str.split('-').map((item, index) => index === 0 ? item.split('').map((letter, index) => index === 0 ? letter.toUpperCase() : letter).join('') : item).join(' ');
 
@@ -53,7 +41,6 @@ class SearchResult extends Component {
     }
 
     renderResults = () => {
-      if(this.props.searchInput){
         return(
           <div className="search_result_body">
 
@@ -73,7 +60,6 @@ class SearchResult extends Component {
       
           </div>
         );
-      }
     }   
 
     render() {
@@ -84,7 +70,7 @@ class SearchResult extends Component {
                 <main className="search_results_main">
 
                     <header>
-                        <h1>Search results for {this.parseSearchStr(this.props.searchInput)}</h1>
+                        <h1>Search results for {this.parseSearchStr(this.props.match.params.id)}</h1>
                         <hr/>
                     </header>
                     {this.renderResults()}

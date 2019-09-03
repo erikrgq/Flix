@@ -50,10 +50,7 @@ input::placeholder{
 }
 .nav_right{
     display: flex;
-    justify-content: space-between;
     width: 100%;
-    margin-right: 50px;
-    
 }
 .nav_right_icon{
     color: #f9f9f9;

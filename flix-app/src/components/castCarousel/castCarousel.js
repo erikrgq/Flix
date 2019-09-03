@@ -27,6 +27,7 @@ class castCarousel extends Component {
                breakpoints: {
                  768: {
                    slidesPerView: 5,
+                   centeredSlides: true,
                  },
                  640: {
                    slidesPerView: 3,

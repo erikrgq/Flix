@@ -11,13 +11,15 @@ import saveText from '../../actions/SearchTextAction';
 import searchResult from '../../actions/SearchResultAction';
 
 class Nav extends Component {
-    onChange = e => {
-        const searchInput = e.target.value;
-        this.props.saveText(searchInput);
+    state = {
+        text: '',
     }
 
-    componentDidMount(){
-        this.props.searchResult(`https://api.themoviedb.org/3/search/multi?api_key=${this.props.apiKey}&language=en-US&query=${toString(this.props.searchInput)}&page=1&include_adult=false&region=US`);
+    onChange = e => {
+        this.setState({text: e.target.value});
+        
+        /*const searchInput = e.target.value;
+        this.props.saveText(searchInput);*/
     }
 
     
@@ -34,11 +36,12 @@ class Nav extends Component {
                         name="search" 
                         placeholder="Search Flix..." 
                         onChange={this.onChange} />
-                    <Link to={`/search-result`}>
+                    <Link to={`/search-result/${this.state.text}`}>
                     <button
                         className="search_right" 
                         type="submit" 
-                        value="submit">
+                        value="submit"
+                        >
                         <FontAwesomeIcon icon={faSearch} className="nav_icon" />
                     </button>
                     </Link>
@@ -49,11 +52,11 @@ class Nav extends Component {
                             <FontAwesomeIcon icon={faHome} className="nav_right_icon" />
                         </Link>
                     </span>
-                    <span>
+                    {/*<span>
                         <Link to={"/profile"}>
                             <FontAwesomeIcon icon={faUser} className="nav_right_icon" />
                         </Link>
-                    </span>
+                    </span>*/}
                 </div>
             </nav>
         );
