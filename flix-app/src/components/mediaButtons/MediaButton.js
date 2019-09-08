@@ -9,8 +9,8 @@ class MediaButton extends Component {
     render() {
         return (
             <div className="btn_container">
-                <button onClick={() => {this.props.setMediaType('MOVIES')}}>Movies</button>
-                <button onClick={() => { this.props.setMediaType('TV')}}>TV Shows</button>
+                <button onClick={() => {this.props.setMediaType('MOVIES'); this.handleMovieFetch(); }}>Movies</button>
+                <button onClick={() => { this.props.setMediaType('TV'); this.handleTVFetch(); }}>TV Shows</button>
             </div>
         )
     }

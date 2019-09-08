@@ -46,6 +46,7 @@ class MainSlider extends Component {
                 loop: true,
                 observer: true,
                 observeSlideChildren: true,
+
                 
                 autoplay: {
                     delay: 5000,
@@ -56,19 +57,25 @@ class MainSlider extends Component {
 
         return(
             <div className="main-swiper-container">
+                
                 <div className="swiper-wrapper main_wrapper">
 
                 {
                     this.props.items.map((item, i) => {
-                    if (i >= 0 && i <= 10) {
+                    if (i >= 0 && i <= 5) {
                         return (
                             <Link key={item.id} to={`/details/${this.props.itemType.toLowerCase()}/${item.id}`} className="swiper-slide main_slide">
-                                <img src={this.props.config.images ? this.props.config.images.secure_base_url + this.props.config.images.backdrop_sizes[2] + item.backdrop_path : ''} alt={item.title} />
+
+                                <figure className="main-figure">
+                                    <img src={this.props.config.images ? this.props.config.images.secure_base_url + this.props.config.images.backdrop_sizes[2] + item.backdrop_path : ''} alt={item.title} />
+                                </figure>
+
                                 <div className="swiper-info">
                                     <p>TRENDING</p>
                                     <h2>{this.props.itemType === 'MOVIE' ? item.title : item.name}</h2>
                                     <p>{this.props.itemType === 'MOVIE' ? this.genreList(item.genre_ids) + ' | ' + item.vote_average : this.genreListTV(item.genre_ids) + ' | ' + item.vote_average}</p>
                                 </div>
+
                             </Link>
                         );
                         }
@@ -76,6 +83,7 @@ class MainSlider extends Component {
                 }
 
                 </div>
+
             </div>
         );
     }

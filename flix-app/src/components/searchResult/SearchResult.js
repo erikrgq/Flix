@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import Nav from '../Nav/Nav';
 import MainFooter from '../mainFooter/mainFooter';
 import './searchStyle.css';
-import Loader from '../Loader/Loader';
 
 import searchResult from '../../actions/SearchResultAction';
 import postSearchResult from '../../actions/PostSearchResultAction';
@@ -48,7 +47,8 @@ class SearchResult extends Component {
               (
                 <Link key={item.id} to={`/details/${item.media_type.toLowerCase()}/${item.id}`} className="search_link">
                   <div className="search_result">
-                    <img className="search_result_img" src={this.props.config.images ? this.props.config.images.secure_base_url + this.props.config.images.poster_sizes[6] + item.poster_path : this.props.config.backupPoster } alt={item.title} />
+                    <img className="search_result_img" src={this.props.config.images ? this.props.config.images.secure_base_url + this.props.config.images.poster_sizes[6] + item.poster_path : '' } alt={item.title} />
+
                     <h3 className="search_result_title">{item.media_type === 'tv' ? item.name : item.title}</h3>
                   </div>
                 </Link>
@@ -76,7 +76,6 @@ class SearchResult extends Component {
                     {this.renderResults()}
 
                 </main>
-                <Loader />
                 <MainFooter />
             </div>
         )

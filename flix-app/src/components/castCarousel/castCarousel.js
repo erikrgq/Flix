@@ -18,20 +18,23 @@ class castCarousel extends Component {
                return;
              }
              const slider = new Swiper(sliderEl, {
-               slidesPerView: 5,
-               slidesPerGroup: 5,
+               init: true,
+               slidesPerView: 6,
                loop: true,
-               spaceBetween: 100,
                observer: true,
+               slidesOffsetBefore: 50,
+               spaceBetween: 80,
 
                breakpoints: {
-                 768: {
+                 1050: {
                    slidesPerView: 5,
-                   centeredSlides: true,
+                   spaceBetween: 70,
+                   slidesOffsetBefore: 5,
                  },
                  640: {
                    slidesPerView: 3,
-                   spaceBetween: 50,
+                   spaceBetween: 40,
+                   slidesOffsetBefore: 10,
                  },
                },
                navigation: {
@@ -47,15 +50,18 @@ class castCarousel extends Component {
                 {this.props.people ?
                     <div className="swiper-container-cast">
                         <div className="swiper-wrapper cast_wrapper">
-                            {this.props.people.map((person, i) => {
-                                if(i <= 10) {
+                            {this.props.people.map((person) => {
+                                 
                                     return(
                                         <div key={person.id} className="swiper-slide cast_slide">
-                                            <img className="cast-img" src={person.profile_path && config.images ? `${config.images ? config.images.secure_base_url : ''}${config.images ? config.images.profile_sizes[1] : ''}${person.profile_path}` : config.backup} alt={person.name} />
+
+                                            <img className="cast-img" src={person.profile_path ? `${config.images ? config.images.secure_base_url : ''}${config.images ? config.images.profile_sizes[1] : ''}${person.profile_path}` : config.backup} alt={person.name} />
+
                                             <h3 className="cast-name">{person.name} | {person.character}</h3>
+
                                         </div>
                                     );
-                                }
+                                
                             })}
                         </div>
 
@@ -64,7 +70,11 @@ class castCarousel extends Component {
 
                     </div>
                     :
-                    <p className="cast-error">No cast found...</p>
+                    <div className="swiper-container-cast">
+                      <div className="swiper-wrapper cast_wrapper">
+                        <h1>No Cast Found...</h1>
+                      </div>
+                    </div>
                 }
             </div>
                 

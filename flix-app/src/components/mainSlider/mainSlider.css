@@ -21,10 +21,26 @@
     position: relative;
     align-items: center;
 }
-.main_slide > img{
+.main-figure{
+    position: relative;
+    backface-visibility: hidden;
+    height: 100vh;
+    width: 100%;
+}
+.main-figure::before{
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(to bottom, #333333, #393939, #939393, #c5c5c5, #f9f9f9);
+    opacity: .5;
+}
+.main-figure > img{
     background-position: center top no-repeat;
     background-position: center;
-    opacity: 0.5;
     height: 100%;
     width: 100%;
 }
@@ -32,6 +48,12 @@
 /**Responsive design*/
 @media only screen and (max-width: 1050px){
     .main_wrapper{
+        height: 33vh;
+    }
+    .main-figure{
+        height: 33vh;
+    }
+    .main-figure::before{
         height: 33vh;
     }
     .swiper-info > h2 {

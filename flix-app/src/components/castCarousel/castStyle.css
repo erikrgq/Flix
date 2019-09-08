@@ -1,13 +1,15 @@
 .cast-container{
+    width: 100%;
+    margin: auto;
+    overflow: hidden;
 }
 .swiper-container-cast{
-    overflow: hidden;
     position: relative;
 }
 .cast_wrapper{
     display: flex;
     flex-direction: row;
-    align-content: center;
+
 }
 .cast_slide{
     height: 250px;

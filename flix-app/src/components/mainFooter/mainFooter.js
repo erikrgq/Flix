@@ -12,7 +12,7 @@ class mainFooter extends Component {
                     <div className="main-footer-info">
                         <h1>Flix</h1>
                         <p>&copy; Erik Gardea</p>
-                        <a href="https://pedantic-mahavira-54cae4.netlify.com" target="_blank" rel="noopener noreferrer">Erik Gardea Portfolio</a>
+                        <a href="http://erikgardea.live" target="_blank" rel="noopener noreferrer">Erik Gardea Portfolio</a>
                     </div>
 
                     <div className="main-footer-logo">

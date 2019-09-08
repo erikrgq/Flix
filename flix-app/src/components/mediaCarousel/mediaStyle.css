@@ -1,18 +1,17 @@
 .media-container{
-    width: 75%;
+    width: 65%;
     margin: auto;
     overflow: hidden;
 }
 .media-swiper-container{
-    margin: 10px 0;
     position: relative;
+    padding: 20px 0;
 }
 .media-swiper-container > h2 {
     padding: 20px 0 0 0;
 }
 .media_wrapper{
     display: flex;
-    padding: 10px 0;
 }
 .media_slide{
     margin: 0 12px;
@@ -94,7 +93,23 @@ a > span{
 /**Responsive design*/
 @media only screen and (max-width: 1050px){
     .media-container{
+        width: 75%;
+    }
+}
+@media only screen and (max-width: 640px){
+    .media-container{
         width: 100%;
         padding: 1rem;
+    }
+    .media_figure{
+        height: 150px;
+        width: 90px;
+    }
+    .media_figure > img{
+        height: 150px;
+        width: 90px;
+    }
+    .media_slide > a > h4{
+        display: none;
     }
 }

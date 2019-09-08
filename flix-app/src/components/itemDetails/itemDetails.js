@@ -14,7 +14,6 @@ import tvReviews from '../../actions/TVActions/TVReviews';
 import Cast from '../castCarousel/castCarousel';
 import Trailer from '../trailerCarousel/trailerCarousel';
 import Stars from '../stars/starRating';
-import Loader from '../Loader/Loader';
 
 import './itemStyle.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -23,11 +22,6 @@ import { faCaretLeft } from '@fortawesome/free-solid-svg-icons';
 class itemDetails extends Component {
     componentDidMount(){
         this.fetchData(this.props.match.params.id);
-    }
-    componentDidUpdate(nextProps){
-        if (this.props.match.params.id !== nextProps.match.params.id) {
-            this.fetchData(nextProps.match.params.id, nextProps.match.params.type);
-        }
     }
 
     fetchData(id, type = this.props.match.params.type){
@@ -48,7 +42,10 @@ class itemDetails extends Component {
         if(type === 'movie') {
             return (
                 <div className="item-details-info-container">
-                    <img className="item-details-info-img" src={this.props.config.images && this.props.MovieDetails.backdrop_path ? this.props.config.images.secure_base_url + this.props.config.images.backdrop_sizes[2] + this.props.MovieDetails.backdrop_path : ''} alt={this.props.MovieDetails.title} />
+                    <figure className="item-figure">
+                        <img className="item-details-info-img" src={this.props.config.images && this.props.MovieDetails.backdrop_path ? this.props.config.images.secure_base_url + this.props.config.images.backdrop_sizes[2] + this.props.MovieDetails.backdrop_path : ''} alt={this.props.MovieDetails.title} />
+                    </figure>
+                    
                         
                     <div className="item-details-info-content">
         
@@ -72,7 +69,10 @@ class itemDetails extends Component {
         } else if(type === 'tv') {
             return (
                 <div className="item-details-info-container">
-                    <img className="item-details-info-img" src={this.props.config.images && this.props.TVDetails.poster_path ? this.props.config.images.secure_base_url + this.props.config.images.backdrop_sizes[2] + this.props.TVDetails.backdrop_path : ''} alt={this.props.TVDetails.name} />
+
+                    <figure className="item-figure">
+                        <img className="item-details-info-img" src={this.props.config.images && this.props.TVDetails.poster_path ? this.props.config.images.secure_base_url + this.props.config.images.backdrop_sizes[2] + this.props.TVDetails.backdrop_path : ''} alt={this.props.TVDetails.name} />
+                    </figure>
                         
                     <div className="item-details-info-content">
         
@@ -143,9 +143,8 @@ class itemDetails extends Component {
                 return(
                     <div className="item-details-main-trailers">
                         <h2 className="item-details-main-title">Trailers</h2>
-                        {this.props.MovieTrailers ? 
-                        <Trailer trailers={this.props.MovieTrailers.results} />
-                            : <p>No Trailers Found...</p>
+                        {this.props.MovieTrailers ? <Trailer trailers={this.props.MovieTrailers.results} />
+                            : (<p>No Trailers Found...</p>)
                         }
                     </div>
 
@@ -174,7 +173,11 @@ class itemDetails extends Component {
                                 <p>{this.shortText(review.content)}</p>
                                 <a href={review.url} target="_blank" rel="noopener noreferrer" className="show-more"><p>Read full review</p></a>
                             </div>
-                        )) : (<div className="reviews_content" ><h4>No Reviews Found...</h4></div>)}
+                        )) :    (<div className="reviews_content">
+                                    <h4>No Reviews Found</h4>
+                                    <p>...</p>
+                                </div>)
+                        }
                     </div>
                 );
             case 'tv':
@@ -182,12 +185,16 @@ class itemDetails extends Component {
                     <div className="item-details-main-reviews">
                         <h2 className="item-details-main-title">Reviews</h2>
                         {this.props.TVReviews.results ? this.props.TVReviews.results.map(review => (
+                            
                             <div key={review.id} className="reviews_content">
                                 <h4>{review.author}</h4>
                                 <p>{this.shortText(review.content)}</p>
                                 <a href={review.url} target="_blank" rel="noopener noreferrer" className="show-more"><p>Read full review</p></a>
                             </div>
-                        )) : (<div className="reviews_content" ><h4>No Reviews Found...</h4></div>)
+                        )) : (<div className="reviews_content">
+                                <h4>No Reviews Found</h4>
+                                <p>...</p>
+                            </div>)
                         }
                     </div>
                 );
@@ -229,7 +236,6 @@ class itemDetails extends Component {
                         
                         {this.itemDetailsReviews(this.props.match.params.type)}
                 </main>
-                <Loader />
             </div>
         );
     };

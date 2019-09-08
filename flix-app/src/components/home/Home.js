@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import Swiper from 'swiper';
 
 import setMediaType from '../../actions/SetMediaType';
 
@@ -8,7 +9,7 @@ import MainSlider from '../mainSlider/MainSlider';
 import MediaButtons from '../mediaButtons/MediaButton';
 import MediaCarousel from '../mediaCarousel/mediaCarousel';
 
-import Loader from '../Loader/Loader';
+
 import MainFooter from '../mainFooter/mainFooter';
 
 import nowPlayingMovies from '../../actions/movieActions/nowPlayingMovies';
@@ -26,14 +27,12 @@ import './homeStyle.css';
 class Home extends Component {
     //checks for media type
     componentDidMount() {
-        this.handleMovieFetch();
-        this.handleTVFetch();
-    }
-    /*componentDidUpdate() {
-        if(this.props.itemType === 'TV') {
+        if(this.props.itemType === 'MOVIE') {
+            this.handleMovieFetch();
+        } else if(this.props.itemType === 'TV') {
             this.handleTVFetch();
         }
-    }*/
+    }
 
     //fetches data
     handleMovieFetch = () => {
@@ -71,16 +70,51 @@ class Home extends Component {
             </div>
         }
 
+        // Init swiper
+        (() => {
+            const sliderEl = document.querySelectorAll('.media-swiper-container');
+            if(!sliderEl){
+            return;
+            }
+            const slider = new Swiper(sliderEl, {
+                init: true,
+                slidesPerView: 5,
+                spaceBetween: 125,
+                observer: true,
+                loop: true,
+                slidesOffsetBefore: 30,
+        
+                breakpoints: {
+                    1050: {
+                    slidesPerView: 5,
+                    spaceBetween: 10,
+                    slidesOffsetBefore: 15,
+                    },
+                    699: {
+                    slidesPerView: 3,
+                    spaceBetween: 10,
+                    slidesOffsetBefore: 5,
+                    },
+                },
+                navigation: {
+                    nextEl: '.media-button-next',
+                    prevEl: '.media-button-prev',
+                }
+            });
+            })();
+
         return (
             <div>
                 <Nav />
                 <MainSlider items={this.props.itemType === 'TV' ? this.props.trendingTV.results : this.props.trendingMovie.results} />
-                <MediaButtons />
+                <div className="btn_container">
+                    <button onClick={() => {this.props.setMediaType('MOVIES'); this.handleMovieFetch(); }}>Movies</button>
+                    <button onClick={() => { this.props.setMediaType('TV'); this.handleTVFetch(); }}>TV Shows</button>
+                </div>
                 <div id="media_swiper_result">
                     {movie}
                 </div>
                 <MainFooter />
-                <Loader />
             </div>
         )
     }
