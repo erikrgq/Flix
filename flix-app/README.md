@@ -1,6 +1,8 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Flix
+React/Redux app to browse Movies and TV.
 
-## Available Scripts
+http://flixmedia.xyz/
+
 
 In the project directory, you can run:
 
